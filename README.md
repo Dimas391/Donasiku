@@ -20,13 +20,13 @@ Platform Donasi Komunitas adalah aplikasi berbasis web yang menyediakan sistem l
 
 1. **Clone repository**
    
-   Clone repository ke komputer lokal kalian:
+   Clone repository ke komputer lokal kalian
    ```bah
    git clone https://github.com/Dimas391/Donasiku.git
    ``` 
 3. **Masuk ke dalam direktori proyek**
    
-   Navigasikan ke folder proyek yang baru saja di-clone:
+   Navigasikan ke folder proyek yang baru saja di-clone
    ```bash
    cd Donasiku
    ```
