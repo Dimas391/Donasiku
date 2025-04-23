@@ -19,26 +19,31 @@ Platform Donasi Komunitas adalah aplikasi berbasis web yang menyediakan sistem l
 ### 🔁 Menggunakan Docker Compose
 
 1. **Clone repository**
+   
    Clone repository ke komputer lokal kalian:
    ```bah
    git clone https://github.com/Dimas391/Donasiku.git
    ``` 
 3. **Masuk ke dalam direktori proyek**
+   
    Navigasikan ke folder proyek yang baru saja di-clone:
    ```bash
    cd Donasiku
    ```
-4. **Build image Docker jika belum dibuild sebelumnya**
+5. **Build image Docker jika belum dibuild sebelumnya**
+   
    Jalankan perintah berikut untuk membangun image Docker dari Dockerfile:
    ```bash
    docker-compose build
    ```
-5. **Jalankan aplikasi menggubakan docker**
+7. **Jalankan aplikasi menggubakan docker**
+   
    Jalankan perintah berikut untuk menjalankan aplikasi donasiku
    ```bash
    docker-compose up -d
    ```
-6. **Akes browser**
+9. **Akes browser**
+    
    Buka browser untuk menjalankan aplikasi
    ```bash
    http://localhost:8080
