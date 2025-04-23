@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Donasi Komunitas - Tentang Donasi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #6ca82b;
+            --secondary-color: #f6f4e8;
+            --text-color: #333;
+            --accent-color: #e78e6d;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
+        
+        .navbar {
+            background-color: var(--primary-color) !important;
+            padding: 12px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        .header-banner {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+        
+        .header-banner h1 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+        
+        .header-banner p {
+            font-size: 18px;
+            margin-bottom: 0;
+        }
+        
+        .content-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .feature-box {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .feature-title {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .testimonial-card {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+        }
+        
+        .impact-number {
+            font-size: 42px;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .impact-label {
+            font-size: 16px;
+        }
+        
+        .category-card {
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        
+        .category-img {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .category-content {
+            padding: 20px;
+            background-color: white;
+        }
+        
+        .category-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .category-desc {
+            margin-bottom: 15px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #5a9023;
+            border-color: #5a9023;
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        
+        .faq-question {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-point {
+            padding: 20px;
+            border-left: 3px solid var(--primary-color);
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-point::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            left: -9px;
+            top: 24px;
+        }
+        
+        .timeline-year {
+            font-weight: bold;
+            font-size: 20px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Platform Donasi</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="donasi.html">Donasi Sekarang</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="tentang.html">Tentang Donasi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="transparansi.html">Transparansi</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="header-banner">
+        <div class="container text-center">
+            <h1>Tentang Donasi</h1>
+            <p>Mengenal lebih dekat tentang program, misi, dan dampak donasi kami</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="content-card">
+                    <div class="section-title">Mengapa Donasi Melalui Platform Kami?</div>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="feature-box">
+                                <i class="bi bi-shield-check feature-icon"></i>
+                                <div class="feature-title">Terpercaya</div>
+                                <p>100% dana tersalurkan langsung ke penerima manfaat dengan laporan transparan.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-box">
+                                <i class="bi bi-graph-up-arrow feature-icon"></i>
+                                <div class="feature-title">Terukur</div>
+                                <p>Kami melacak setiap donasi dan mengukur dampaknya terhadap masyarakat.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-box">
+                                <i class="bi bi-lightning-charge feature-icon"></i>
+                                <div class="feature-title">Efisien</div>
+                                <p>Proses donasi yang cepat dan mudah hanya dengan beberapa klik.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="content-card">
+                    <div class="section-title">Tentang Platform Donasi Komunitas</div>
+                    
+                    <p>Platform Donasi Komunitas adalah lembaga nirlaba yang didirikan pada tahun 2024 dengan tujuan menjembatani antara donatur dan penerima manfaat. Kami percaya bahwa setiap orang memiliki hak untuk mendapatkan kesempatan yang sama dalam hidup, terlepas dari latar belakang sosial dan ekonomi mereka.</p>
+                    
+                    <p>Sejak didirikan, kami telah berhasil menyalurkan lebih dari Rp 5 juta dana donasi untuk berbagai program di bidang pendidikan, kesehatan, dan penanggulangan bencana. Kami beroperasi dengan prinsip transparansi penuh, di mana setiap rupiah yang didonasikan dapat dilacak penggunaannya.</p>
+                    
+                    <p>Visi kami adalah menciptakan masyarakat yang lebih inklusif dan sejahtera melalui gerakan filantropi yang efektif dan transparan. Kami berkomitmen untuk menjadi platform donasi terpercaya yang mengutamakan akuntabilitas dan dampak positif bagi masyarakat.</p>
+                    
+                    <div class="mt-4">
+                        <h5>Nilai-nilai yang Kami Junjung Tinggi:</h5>
+                        <ul>
+                            <li><strong>Transparansi</strong> - Kami menyediakan informasi lengkap tentang penggunaan dana donasi.</li>
+                            <li><strong>Akuntabilitas</strong> - Kami mempertanggungjawabkan setiap keputusan dan tindakan dalam menyalurkan donasi.</li>
+                            <li><strong>Integritas</strong> - Kami beroperasi dengan standar etika tertinggi.</li>
+                            <li><strong>Keberlanjutan</strong> - Kami merancang program yang memiliki dampak jangka panjang.</li>
+                            <li><strong>Empati</strong> - Kami menempatkan kebutuhan penerima manfaat sebagai prioritas utama.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="content-card text-center">
+                    <div class="section-title">Dampak Kami</div>
+                    
+                    <div class="mb-4">
+                        <span class="impact-number">10+</span>
+                        <span class="impact-label">Program Tersalurkan</span>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <span class="impact-number">50</span>
+                        <span class="impact-label">Penerima Manfaat</span>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <span class="impact-number">10</span>
+                        <span class="impact-label">Daerah Terjangkau</span>
+                    </div>
+                    
+                    <div>
+                        <span class="impact-number">10+</span>
+                        <span class="impact-label">Donatur Aktif</span>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <a href="donasi.html" class="btn btn-primary btn-lg">Donasi Sekarang</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="content-card">
+                    <div class="section-title">Kategori Program Donasi</div>
+                    
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="category-card">
+                                <div class="category-img" style="background-image: url('/api/placeholder/400/320');"></div>
+                                <div class="category-content">
+                                    <h4 class="category-title">Pendidikan</h4>
+                                    <p class="category-desc">Membantu anak-anak dari keluarga kurang mampu mendapatkan akses pendidikan yang layak.</p>
+                                    <a href="#" class="btn btn-outline-primary btn-sm">Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="category-card">
+                                <div class="category-img" style="background-image: url('/api/placeholder/400/320');"></div>
+                                <div class="category-content">
+                                    <h4 class="category-title">Kesehatan</h4>
+                                    <p class="category-desc">Memberikan layanan kesehatan dasar untuk masyarakat di daerah terpencil.</p>
+                                    <a href="#" class="btn btn-outline-primary btn-sm">Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="category-card">
+                                <div class="category-img" style="background-image: url('/api/placeholder/400/320');"></div>
+                                <div class="category-content">
+                                    <h4 class="category-title">Bencana Alam</h4>
+                                    <p class="category-desc">Menyalurkan bantuan darurat untuk korban bencana alam di seluruh Indonesia.</p>
+                                    <a href="#" class="btn btn-outline-primary btn-sm">Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="category-card">
+                                <div class="category-img" style="background-image: url('/api/placeholder/400/320');"></div>
+                                <div class="category-content">
+                                    <h4 class="category-title">Sosial</h4>
+                                    <p class="category-desc">Mendukung kelompok rentan seperti lansia, difabel, dan mereka yang terpinggirkan.</p>
+                                    <a href="#" class="btn btn-outline-primary btn-sm">Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="content-card">
+                    <div class="section-title">Perjalanan Kami</div>
+                    
+                    <div class="timeline">
+                        <div class="timeline-point">
+                            <div class="timeline-year">4 Desember 2024</div>
+                            <p>Memberikan bantuan kepada masyarakat terdampak banjir dengan menyalurkan donasi kepada wilayah dengan tingkat kerentanan tinggi, seperti Gampong Hagu Selatan.</p>
+                        </div>
+                        
+                        <div class="timeline-point">
+                            <div class="timeline-year">14 Januari 2025</div>
+                            <p> Awal 2025, kami menyalurkan <strong>bantuan darurat</strong> untuk warga terdampak abrasi pantai di Meunasah Baro, Muara Batu. 
+                                Bantuan berupa bahan bangunan, kebutuhan pokok, dan perlengkapan evakuasi disalurkan kepada keluarga seperti Hafsah, Musliadi, dan Muhammad Aljabir.</p>
+                        </div>
+                        
+                        <div class="timeline-point">
+                            <div class="timeline-year">15 Januari 2025</div>
+                            <p>  Awal tahun 2025, kebakaran hebat melanda rumah Dedi Saputra di Gampong Jawa Baru, Lhokseumawe. 
+                                Rumah, betor, dan uang Rp10 juta hangus terbakar saat rumah dalam keadaan kosong. 
+                                Kami hadir memberikan <strong>bantuan darurat</strong> untuk keluarga yang kini tinggal di tenda pengungsian.</p>
+                        </div>
+                        
+                        <div class="timeline-point">
+                            <div class="timeline-year">20 Januari 2025</div>
+                            <p>  Banjir merendam 169 rumah di Kota Binjai, berdampak pada 807 jiwa. 
+                                Meski genangan telah surut, status darurat bencana hidrometeorologi masih diberlakukan. 
+                                Tim kami menyalurkan <strong>bantuan logistik</strong> dan kebutuhan mendesak kepada warga terdampak.</p>
+                        </div>
+                        
+                        <div class="timeline-point">
+                            <div class="timeline-year">22 Januari 2025</div>
+                            <p>Sebanyak 282 rumah di Kabupaten Deliserdang terendam banjir, memengaruhi 1.048 jiwa. 
+                                Bersama relawan dan donatur, kami menyalurkan <strong>bantuan pangan, air bersih,</strong> dan <strong>perlindungan sementara</strong> bagi warga terdampak.</p>
+                        </div>
+                        
+                        <div class="timeline-point">
+                            <div class="timeline-year">26 Januari 2025</div>
+                            <p> Di Kabupaten Asahan, bencana hidrometeorologi berdampak pada 5.645 jiwa dengan 12 KK / 41 jiwa mengungsi. 
+                               6 jembatan rusak dan abrasi jalan sepanjang 2.100 meter terjadi. Kami hadir memberikan <strong>bantuan logistik dan evakuasi</strong> untuk warga terdampak.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="content-card">
+                    <div class="section-title">Testimoni Donatur</div>
+                    
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"Platform Donasi Komunitas memberikan saya kepercayaan penuh karena transparansi mereka. Saya bisa melacak kemana donasi saya disalurkan dan melihat dampak nyatanya."</p>
+                        <div class="testimonial-author">- Dimas Kurniawan, Donatur Tetap</div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"Sebagai orang yang sibuk, saya menghargai kemudahan berdonasi melalui platform ini. Prosesnya cepat dan saya selalu mendapatkan laporan penggunaan dana secara rutin."</p>
+                        <div class="testimonial-author">- Sulthan Juanda, Mahasiswa</div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"Saya telah berdonasi ke beberapa lembaga, tetapi Platform Donasi Komunitas adalah yang paling transparan. Saya bahkan diajak untuk mengunjungi lokasi penyaluran donasi secara langsung."</p>
+                        <div class="testimonial-author">- Andrian Fakhruza, Pengusaha</div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"Sebagai mahasiswa dengan pendapatan terbatas, saya senang bisa ikut berdonasi dengan nominal kecil. Platform ini membuat saya merasa bahwa kontribusi sekecil apapun tetap berharga."</p>
+                        <div class="testimonial-author">- Muhammad Alfitrah, Mahasiswa</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mb-5">
+            <div class="col-lg-12">
+                <div class="content-card">
+                    <div class="section-title">Pertanyaan Umum</div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Bagaimana cara berdonasi melalui platform ini?</div>
+                        <div class="faq-answer">
+                            <p>Anda dapat berdonasi dengan langkah mudah yaitu: pilih program yang ingin didukung, isi formulir donasi, pilih metode pembayaran (transfer bank, e-wallet, kartu kredit), dan selesaikan transaksi. Anda akan menerima konfirmasi dan laporan penggunaan dana melalui email.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Bagaimana saya tahu donasi saya benar-benar tersalurkan?</div>
+                        <div class="faq-answer">
+                            <p>Setiap donasi akan mendapatkan laporan penyaluran secara berkala melalui email. Anda juga dapat melihat laporan lengkap di halaman Transparansi pada website kami. Untuk program-program tertentu, kami juga mengadakan kunjungan langsung yang bisa diikuti oleh donatur.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Bisakah saya menentukan ke mana donasi saya disalurkan?</div>
+                        <div class="faq-answer">
+                            <p>Tentu saja. Saat berdonasi, Anda dapat memilih kategori program atau bahkan program spesifik yang ingin didukung. Anda juga bisa memilih opsi "Donasi Umum" yang akan kami salurkan sesuai dengan kebutuhan paling mendesak.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">Apakah ada biaya administrasi yang dipotong dari donasi saya?</div>
+                        <div class="faq-answer">
+                            <p>Platform Donasi Komunitas berkomitmen menyalurkan 100% donasi Anda ke penerima manfaat. Biaya operasional kami ditanggung oleh para mitra dan donatur khusus yang mendukung keberlanjutan platform ini.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Platform Donasi Komunitas</h5>
+                    <p>Memberikan dampak positif untuk masyarakat melalui donasi yang terpercaya dan transparan.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Tautan</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white">Beranda</a></li>
+                        <li><a href="donasi.html" class="text-white">Donasi</a></li>
+                        <li><a href="transparansi.html" class="text-white">Transparansi</a></li>
+                        <li><a href="kontak.html" class="text-white">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Ikuti Kami</h5>
+                    <div class="d-flex">
+                        <a href="#" class="text-white me-3"><i class="bi bi-facebook fs-4"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-instagram fs-4"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-twitter fs-4"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-youtube fs-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 Kelompok 1. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

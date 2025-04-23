@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Donasi Komunitas - Beranda</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="js/donasi.js"></script>
+    <style>
+        :root {
+            --primary-color: #6ca82b;
+            --secondary-color: #f6f4e8;
+            --text-color: #333;
+            --accent-color: #e78e6d;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
+        
+        .navbar {
+            background-color: var(--primary-color) !important;
+            padding: 12px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        .header-banner {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 0;
+            margin-bottom: 30px;
+        }
+        
+        .header-banner h1 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .header-banner p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .dashboard-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .total-donasi {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .amount {
+            font-size: 38px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .chart-container {
+            height: 300px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .category-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .category-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .category-name {
+            flex: 1;
+        }
+        
+        .category-percent {
+            font-weight: 600;
+        }
+        
+        .illustration {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .illustration img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .bencana { background-color: #ff9a76; }
+        .pendidikan { background-color: #78c6a3; }
+        .kesehatan { background-color: #93b5e1; }
+        .sosial { background-color: #ededed; }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #5a8e24;
+            border-color: #5a8e24;
+        }
+        
+        .action-button {
+            margin-top: 20px;
+        }
+        
+        .stats-item {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: rgba(108, 168, 43, 0.1);
+            margin-bottom: 15px;
+        }
+        
+        .stats-number {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .stats-label {
+            font-size: 14px;
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Platform Donasi</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="donasi.html">Donasi Sekarang</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tentang.html">Tentang Donasi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="transparansi.html">Transparansi</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="header-banner">
+        <div class="container text-center">
+            <h1>Platform Donasi Komunitas</h1>
+            <p>Bersama kita bantu mereka yang membutuhkan</p>
+            <a href="donasi.html" class="btn btn-light btn-lg">Donasi Sekarang</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="stats-item">
+                    <div class="stats-number">Rp 9.800.000</div>
+                    <div class="stats-label">Total Donasi Terkumpul</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stats-item">
+                    <div class="stats-number">57</div>
+                    <div class="stats-label">Jumlah Donatur</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stats-item">
+                    <div class="stats-number">12</div>
+                    <div class="stats-label">Penerima Manfaat</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="dashboard-card">
+                    <div class="section-title">Distribusi Donasi per Kategori</div>
+                    <div class="chart-container" style="max-width: 400px; margin: auto;">
+                        <svg viewBox="0 0 400 400" width="100%" height="auto">
+                            <!-- Definisi bayangan -->
+                            <defs>
+                                <filter id="shadow" x="-20%" y="-20%" width="150%" height="150%">
+                                    <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000" flood-opacity="0.15"/>
+                                </filter>
+                            </defs>
+                    
+                            <!-- Bencana Alam (31.2%) - Oranye -->
+                            <path d="M200,200 L200,50 A150,150 0 0,1 328.5,275 Z"
+                                  fill="#ff9a76" stroke="#fff" stroke-width="2" filter="url(#shadow)" />
+                    
+                            <!-- Pendidikan (40.3%) - Hijau -->
+                            <path d="M200,200 L328.5,275 A150,150 0 0,1 115,323.5 Z"
+                                  fill="#78c6a3" stroke="#fff" stroke-width="2" filter="url(#shadow)" />
+                    
+                            <!-- Kesehatan (28.5%) - Biru -->
+                            <path d="M200,200 L115,323.5 A150,150 0 0,1 200,50 Z"
+                                  fill="#93b5e1" stroke="#fff" stroke-width="2" filter="url(#shadow)" />
+                    
+                            <!-- Lingkaran tengah -->
+                            <circle cx="200" cy="200" r="70" fill="#ffffff" stroke="#eee" stroke-width="1" />
+                    
+                            <!-- Label tahun -->
+                            <text x="200" y="205" text-anchor="middle"
+                                  font-size="20" font-weight="bold" fill="#333" font-family="Arial, sans-serif">
+                                2025
+                            </text>
+                        </svg>
+                    </div>
+                    
+                    
+                    <div class="category-legend">
+                        <div class="category-item">
+                            <div class="category-color" style="background-color: #ff9a76;"></div>
+                            <div class="category-name">Bencana</div>
+                            <div class="category-percent">31.2%</div>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-color" style="background-color: #78c6a3;"></div>
+                            <div class="category-name">Pendidikan</div>
+                            <div class="category-percent">40.3%</div>
+                        </div>
+                        <div class="category-item">
+                            <div class="category-color" style="background-color: #93b5e1;"></div>
+                            <div class="category-name">Kesehatan</div>
+                            <div class="category-percent">28.5%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-button text-center">
+                        <a href="transparansi.html" class="btn btn-outline-primary">Lihat Detail Transparansi</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="dashboard-card">
+                    <div class="section-title">Tentang Platform Donasi</div>
+                    
+                    <div class="illustration">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400">
+                            <!-- Background elements -->
+                            <ellipse cx="250" cy="350" rx="200" ry="50" fill="#edce93" opacity="0.3" />
+                            
+                            <!-- Mosque silhouette in background -->
+                            <path d="M300,200 Q320,150 340,200 L340,300 L300,300 Z" fill="#ba8e68" opacity="0.7" />
+                            <path d="M340,180 Q370,100 400,180 L400,300 L340,300 Z" fill="#926b4f" opacity="0.7" />
+                            <ellipse cx="370" cy="100" rx="20" ry="20" fill="#f5f5f5" />
+                            
+                            <!-- Plants -->
+                            <path d="M420,300 C440,260 460,280 450,300" stroke="#6ca82b" stroke-width="4" fill="none" />
+                            <path d="M430,300 C450,250 470,270 460,300" stroke="#6ca82b" stroke-width="4" fill="none" />
+                            <path d="M440,300 C460,270 480,290 470,300" stroke="#6ca82b" stroke-width="4" fill="none" />
+                            
+                            <!-- Elderly person sitting -->
+                            <ellipse cx="210" cy="300" rx="30" ry="10" fill="#6b88a0" opacity="0.5" />
+                            <rect x="200" y="240" width="20" height="60" rx="10" fill="#75a9d1" />
+                            <circle cx="210" cy="230" r="20" fill="#f5d7b5" />
+                            <path d="M195,225 Q210,235 225,225" stroke="#333" stroke-width="1" fill="none" />
+                            <rect x="190" y="240" width="40" height="30" rx="5" fill="#75a9d1" />
+                            <rect x="185" y="270" width="50" height="15" rx="7" fill="#5d87a8" />
+                            <rect x="195" y="285" width="15" height="15" fill="#f5d7b5" />
+                            <rect x="210" y="285" width="15" height="15" fill="#f5d7b5" />
+                            
+                            <!-- Person helping -->
+                            <ellipse cx="280" cy="310" rx="20" ry="5" fill="#6b88a0" opacity="0.5" />
+                            <rect x="270" y="230" width="20" height="80" rx="10" fill="#8a5a44" />
+                            <circle cx="280" cy="210" r="20" fill="#f5d7b5" />
+                            <path d="M270,205 Q280,215 290,205" stroke="#333" stroke-width="1" fill="none" />
+                            <rect x="255" y="230" width="50" height="40" rx="5" fill="#8a5a44" />
+                            <rect x="270" y="270" width="20" height="40" fill="#5d4037" />
+                            <rect x="255" y="240" width="15" height="40" rx="5" fill="#8a5a44" />
+                            <path d="M255,250 L220,240" stroke="#8a5a44" stroke-width="10" stroke-linecap="round" />
+                        </svg>
+                    </div>
+                    
+                    <p>Platform Donasi Komunitas adalah platform yang bertujuan mempertemukan para donatur dengan mereka yang membutuhkan. Kami fokus pada empat kategori utama: bencana alam, pendidikan, kesehatan, dan sosial.</p>
+                    
+                    <div class="action-button text-center">
+                        <a href="tentang.html" class="btn btn-outline-primary">Pelajari Lebih Lanjut</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="dashboard-card">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="section-title mb-0">Daftar Donasi Terbaru</div>
+                        <a href="donasi.html" class="btn btn-primary">Donasi Sekarang</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="donasiTable">
+                            <thead>
+                                <tr>
+                                    <th>Nama</th>
+                                    <th>Jumlah</th>
+                                    <th>Kategori</th>
+                                    <th>Tanggal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Ahmad Fauzi</td>
+                                    <td>Rp 1.500.000</td>
+                                    <td>Pendidikan</td>
+                                    <td>10 April 2025</td>
+                                </tr>
+                                <tr>
+                                    <td>Siti Nurhaliza</td>
+                                    <td>Rp 2.000.000</td>
+                                    <td>Bencana Alam</td>
+                                    <td>9 April 2025</td>
+                                </tr>
+                                <tr>
+                                    <td>Budi Santoso</td>
+                                    <td>Rp 500.000</td>
+                                    <td>Kesehatan</td>
+                                    <td>8 April 2025</td>
+                                </tr>
+                                <tr>
+                                    <td>Maya Wijaya</td>
+                                    <td>Rp 750.000</td>
+                                    <td>Pendidikan</td>
+                                    <td>7 April 2025</td>
+                                </tr>
+                                <tr>
+                                    <td>Rudi Hartono</td>
+                                    <td>Rp 1.000.000</td>
+                                    <td>Sosial</td>
+                                    <td>6 April 2025</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="riwayat-donasi.html" class="btn btn-outline-primary">Lihat Semua Donasi</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Platform Donasi Komunitas</h5>
+                    <p>Memberikan dampak positif untuk masyarakat melalui donasi yang terpercaya dan transparan.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Tautan</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white">Beranda</a></li>
+                        <li><a href="donasi.html" class="text-white">Donasi</a></li>
+                        <li><a href="transparansi.html" class="text-white">Transparansi</a></li>
+                        <li><a href="kontak.html" class="text-white">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Ikuti Kami</h5>
+                    <div class="d-flex">
+                        <a href="#" class="text-white me-3"><i class="bi bi-facebook fs-4"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-instagram fs-4"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-twitter fs-4"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-youtube fs-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 Kelompok 1. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // dashboard.js
+document.addEventListener('DOMContentLoaded', function() {
+    fetchDashboardStats();
+});
+
+// Fungsi untuk memformat angka rupiah
+function formatRupiah(angka) {
+    return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0
+    }).format(angka).replace(/\s/g, '');
+}
+
+// Fungsi untuk mengambil statistik dashboard dari API
+function fetchDashboardStats() {
+    fetch('/api/dashboard/stats')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            updateDashboardStats(data);
+            updateDistribusiChart(data.distribusi_kategori);
+        })
+        .catch(error => {
+            console.error('Error fetching dashboard stats:', error);
+            // Menampilkan pesan error jika terjadi masalah
+            document.querySelector('.container').insertAdjacentHTML(
+                'afterbegin',
+                `<div class="alert alert-danger">Gagal memuat data dashboard: ${error.message}</div>`
+            );
+        });
+}
+
+function updateDashboardStats(data) {
+    const statsNumbers = document.querySelectorAll('.stats-number');
+    if (statsNumbers.length >= 3) {
+        statsNumbers[0].textContent = formatRupiah(data.total_donasi);
+        statsNumbers[1].textContent = data.jumlah_donatur;
+        statsNumbers[2].textContent = data.penerima_bantuan;
+    }
+}
+
+
+// Fungsi untuk memperbarui chart distribusi kategori
+function updateDistribusiChart(kategoriData) {
+    // Perbarui persentase dalam legend
+    const legendItems = document.querySelectorAll('.category-item');
+    
+    if (kategoriData && kategoriData.length > 0) {
+        // Urutkan data kategori berdasarkan persentase tertinggi
+        kategoriData.sort((a, b) => b.persen - a.persen);
+        
+        // Batasi hanya 3 kategori teratas untuk chart
+        const topKategori = kategoriData.slice(0, 3);
+        
+        // Perbarui legend dan nilai persentase
+        topKategori.forEach((kategori, index) => {
+            if (index < legendItems.length) {
+                legendItems[index].querySelector('.category-name').textContent = kategori.kategori;
+                legendItems[index].querySelector('.category-percent').textContent = kategori.persen.toFixed(1) + '%';
+            }
+        });
+        
+        updatePieChartSegments(topKategori);
+    }
+}
+
+function updatePieChartSegments(kategoriData) {
+    
+    const chartContainer = document.querySelector('.chart-container');
+    
+    const categoryColors = ['#ff9a76', '#78c6a3', '#93b5e1'];
+    
+    kategoriData.forEach((kategori, index) => {
+        if (index < 3) {
+            const colorBlock = document.querySelectorAll('.category-color')[index];
+            if (colorBlock) {
+                colorBlock.style.backgroundColor = categoryColors[index];
+            }
+        }
+    });
+}
+    </script>
+</body>
+</html>
