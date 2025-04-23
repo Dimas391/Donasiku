@@ -67,8 +67,6 @@ Platform Donasi Komunitas adalah aplikasi berbasis web yang menyediakan sistem l
 - **Docker Compose** – Mengelola dan menjalankan beberapa container sekaligus
 ---
 
----
-
 ## ✍️ Kontribusi
 
 Kami sangat menghargai kontribusi dari anda. Jika anda ingin berkontribusi, ikuti langkah-langkah berikut:
