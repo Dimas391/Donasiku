@@ -19,7 +19,6 @@ Platform Donasi Komunitas adalah aplikasi berbasis web yang menyediakan sistem l
 ### 🔁 Menggunakan Docker Compose
 
 1. **Clone repository**
-   
    Clone repository ke komputer lokal kalian:
    ```bah
    git clone https://github.com/Dimas391/Donasiku.git
