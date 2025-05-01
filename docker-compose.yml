@@ -1,0 +1,38 @@
+services:
+  app:
+    image: dimaskurniawan20114/platform_pencatatn_donasi
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=donasi
+      - DB_PORT=5432
+    networks:
+      - donasi-network
+    restart: always
+
+  db:
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=donasi
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - donasi-network
+    restart: always
+
+networks:
+  donasi-network:
+    driver: bridge
+
+volumes:
+  postgres-data:

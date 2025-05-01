@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Donasi Komunitas - Donasi Sekarang</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #6ca82b;
+            --secondary-color: #f6f4e8;
+            --text-color: #333;
+            --accent-color: #e78e6d;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
+        
+        .navbar {
+            background-color: var(--primary-color) !important;
+            padding: 12px 0;
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        .header-banner {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 0;
+            margin-bottom: 30px;
+        }
+        
+        .header-banner h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .header-banner p {
+            font-size: 16px;
+            margin-bottom: 0;
+        }
+        
+        .donation-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .info-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #5a8e24;
+            border-color: #5a8e24;
+        }
+        
+        .form-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .info-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .info-icon {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            background-color: rgba(108, 168, 43, 0.1);
+            border-radius: 50%;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-size: 24px;
+        }
+        
+        .donation-info-item {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background-color: rgba(108, 168, 43, 0.05);
+        }
+        
+        .payment-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .payment-option {
+            flex: 1;
+            min-width: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .payment-option:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(108, 168, 43, 0.05);
+        }
+        
+        .payment-option.active {
+            border-color: var(--primary-color);
+            background-color: rgba(108, 168, 43, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Platform Donasi</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="donasi.html">Donasi Sekarang</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tentang.html">Tentang Donasi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="transparansi.html">Transparansi</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="header-banner">
+        <div class="container">
+            <h1>Donasi Sekarang</h1>
+            <p>Bantu mereka yang membutuhkan dengan dukungan Anda</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="donation-card">
+                    <div class="form-title">Form Donasi</div>
+                    <form id="donasiForm">
+                        <div class="mb-4">
+                            <label for="nama" class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control form-control-lg" id="nama" placeholder="Masukkan nama lengkap" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control form-control-lg" id="email" placeholder="Masukkan email" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="telepon" class="form-label">Nomor Telepon</label>
+                            <input type="tel" class="form-control form-control-lg" id="telepon" placeholder="Masukkan nomor telepon">
+                        </div>
+                        <div class="mb-4">
+                            <label for="jumlah" class="form-label">Jumlah Donasi (Rp)</label>
+                            <input type="number" class="form-control form-control-lg" id="jumlah" placeholder="Masukkan jumlah donasi" required>
+                            <div class="mt-2">
+                                <div class="btn-group w-100">
+                                    <button type="button" class="btn btn-outline-secondary nominal-btn" data-nominal="50000">Rp 50.000</button>
+                                    <button type="button" class="btn btn-outline-secondary nominal-btn" data-nominal="100000">Rp 100.000</button>
+                                    <button type="button" class="btn btn-outline-secondary nominal-btn" data-nominal="500000">Rp 500.000</button>
+                                    <button type="button" class="btn btn-outline-secondary nominal-btn" data-nominal="1000000">Rp 1.000.000</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="kategori" class="form-label">Kategori</label>
+                            <select class="form-select form-select-lg" id="kategori" required>
+                                <option value="">Pilih Kategori</option>
+                                <option value="Bencana Alam">Bencana Alam</option>
+                                <option value="Pendidikan">Pendidikan</option>
+                                <option value="Kesehatan">Kesehatan</option>
+                                <option value="Sosial">Sosial</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="keterangan" class="form-label">Pesan (Opsional)</label>
+                            <textarea class="form-control" id="keterangan" rows="3" placeholder="Tambahkan pesan atau doa"></textarea>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label">Metode Pembayaran</label>
+                            <div class="payment-options">
+                                <div class="payment-option active" data-method="transfer">
+                                    <i class="bi bi-bank"></i>
+                                    <div>Transfer Bank</div>
+                                </div>
+                                <div class="payment-option" data-method="ewallet">
+                                    <i class="bi bi-wallet2"></i>
+                                    <div>E-Wallet</div>
+                                </div>
+                                <div class="payment-option" data-method="qris">
+                                    <i class="bi bi-qr-code"></i>
+                                    <div>QRIS</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" id="anonimCheck">
+                            <label class="form-check-label" for="anonimCheck">
+                                Sembunyikan identitas saya (donasi anonim)
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg w-100">Donasi Sekarang</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="col-lg-5">
+                <div class="info-card">
+                    <div class="text-center mb-4">
+                        <div class="info-icon">
+                            <i class="bi bi-info-circle"></i>
+                        </div>
+                        <div class="info-title">Informasi Donasi</div>
+                    </div>
+                    
+                    <div class="donation-info-item">
+                        <h5>Tentang Platform Donasi</h5>
+                        <p>Platform Donasi Komunitas adalah platform yang menghubungkan para donatur dengan mereka yang membutuhkan. Kami memastikan donasi Anda sampai kepada penerima yang tepat.</p>
+                    </div>
+                    
+                    <div class="donation-info-item">
+                        <h5>Kategori Donasi</h5>
+                        <ul>
+                            <li><strong>Bencana Alam</strong> - Membantu korban bencana alam seperti banjir, gempa bumi, dll.</li>
+                            <li><strong>Pendidikan</strong> - Mendukung pendidikan anak-anak kurang mampu.</li>
+                            <li><strong>Kesehatan</strong> - Membantu biaya pengobatan bagi yang membutuhkan.</li>
+                            <li><strong>Sosial</strong> - Membantu program sosial kemasyarakatan.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="donation-info-item">
+                        <h5>Transparansi</h5>
+                        <p>Semua donasi akan dikelola secara transparan dan laporan penggunaan dana akan dipublikasikan secara berkala di halaman Transparansi.</p>
+                        <a href="transparansi.html" class="btn btn-outline-primary btn-sm">Lihat Transparansi</a>
+                    </div>
+                    
+                    <div class="donation-info-item">
+                        <h5>Butuh Bantuan?</h5>
+                        <p>Jika Anda memiliki pertanyaan tentang donasi, silakan hubungi kami di:</p>
+                        <p><i class="bi bi-telephone"></i> +62 83848581998<br>
+                        <i class="bi bi-envelope"></i> info@platformdonasikelompok1.id</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Platform Donasi Komunitas</h5>
+                    <p>Memberikan dampak positif untuk masyarakat melalui donasi yang terpercaya dan transparan.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Tautan</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white">Beranda</a></li>
+                        <li><a href="donasi.html" class="text-white">Donasi</a></li>
+                        <li><a href="transparansi.html" class="text-white">Transparansi</a></li>
+                        <li><a href="kontak.html" class="text-white">Kontak</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Ikuti Kami</h5>
+                    <div class="d-flex">
+                        <a href="#" class="text-white me-3"><i class="bi bi-facebook fs-4"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-instagram fs-4"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-twitter fs-4"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-youtube fs-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 Kelompok 1. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle nominal button clicks
+            const nominalBtns = document.querySelectorAll('.nominal-btn');
+            const jumlahInput = document.getElementById('jumlah');
+            
+            nominalBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    nominalBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Set input value
+                    jumlahInput.value = this.dataset.nominal;
+                });
+            });
+            
+            // Handle payment option clicks
+            const paymentOptions = document.querySelectorAll('.payment-option');
+            
+            paymentOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove active class from all options
+                    paymentOptions.forEach(o => o.classList.remove('active'));
+                    
+                    // Add active class to clicked option
+                    this.classList.add('active');
+                });
+            });
+            
+            // Handle form submission
+            document.getElementById('donasiForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get active payment method
+                const activePayment = document.querySelector('.payment-option.active');
+                const paymentMethod = activePayment ? activePayment.dataset.method : 'transfer';
+                
+                // Disable submit button and show loading state
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = 'Memproses...';
+                
+                // Get form data
+                const donasi = {
+                    nama: document.getElementById('nama').value,
+                    email: document.getElementById('email').value,
+                    telepon: document.getElementById('telepon').value,
+                    jumlah: parseFloat(document.getElementById('jumlah').value),
+                    kategori: document.getElementById('kategori').value,
+                    keterangan: document.getElementById('keterangan').value,
+                    anonim: document.getElementById('anonimCheck').checked,
+                    metode_pembayaran: paymentMethod
+                };
+                
+                // Submit data langsung ke API
+                fetch('/api/donasi', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(donasi),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Terjadi kesalahan saat memproses donasi');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+    showNotification('Terima kasih atas donasi Anda!', 'success');
+    document.getElementById('donasiForm').reset();
+    showDonationReceipt(data, paymentMethod);
+})
+
+                .catch(error => {
+                    console.error('Error:', error);
+                    showNotification('Terjadi kesalahan: ' + error.message, 'error');
+                })
+                .finally(() => {
+                    // Re-enable submit button
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                });
+            });
+            
+            // Function untuk menampilkan notifikasi
+            function showNotification(message, type) {
+                // Buat elemen notifikasi
+                const notification = document.createElement('div');
+                notification.className = 'alert alert-' + (type === 'success' ? 'success' : 'danger');
+                notification.innerHTML = message;
+                notification.style.position = 'fixed';
+                notification.style.top = '20px';
+                notification.style.left = '50%';
+                notification.style.transform = 'translateX(-50%)';
+                notification.style.zIndex = '1000';
+                notification.style.minWidth = '300px';
+                notification.style.textAlign = 'center';
+                
+                // Tambahkan ke body
+                document.body.appendChild(notification);
+                
+                // Hapus setelah 5 detik
+                setTimeout(() => {
+                    notification.remove();
+                }, 5000);
+            }
+            
+            function showDonationReceipt(data, paymentMethod) {
+    const metodeMap = {
+        transfer: "Transfer Bank",
+        ewallet: "E-Wallet",
+        qris: "QRIS"
+    };
+
+    let metodeDetail = "";
+
+    if (paymentMethod === "transfer") {
+        metodeDetail = `
+            <p><strong>Bank BCA:</strong> 1234567890 (a.n Platform Donasi)</p>
+            <p><strong>Bank Mandiri:</strong> 0987654321 (a.n Platform Donasi)</p>
+            <p><strong>Bank BNI:</strong> 1122334455 (a.n Platform Donasi)</p>
+        `;
+    } else if (paymentMethod === "ewallet") {
+        metodeDetail = `
+            <p><strong>GoPay:</strong> 0812345678</p>
+            <p><strong>OVO:</strong> 0812345678</p>
+            <p><strong>Dana:</strong> 0812345678</p>
+        `;
+    } else if (paymentMethod === "qris") {
+        metodeDetail = `
+            <div class="text-center mb-3">
+                <img src="/img/qris-sample.png" alt="QRIS Code" style="max-width: 200px;">
+            </div>
+            <p class="text-center">Scan QRIS untuk menyelesaikan donasi Anda</p>
+        `;
+    }
+
+    const modal = document.createElement('div');
+    modal.className = 'modal fade';
+    modal.setAttribute('tabindex', '-1');
+    modal.setAttribute('aria-hidden', 'true');
+
+    modal.innerHTML = `
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Struk Donasi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-success">
+                        Donasi berhasil! Terima kasih atas kontribusi Anda 🙏
+                    </div>
+                    <div>
+                        <p><strong>ID Donasi:</strong> #${data.id}</p>
+                        <p><strong>Nama:</strong> ${data.anonim ? 'Anonim' : data.nama}</p>
+                        <p><strong>Email:</strong> ${data.email}</p>
+                        <p><strong>Nominal:</strong> Rp ${data.jumlah.toLocaleString('id-ID')}</p>
+                        <p><strong>Tanggal:</strong> ${new Date(data.tanggal_donasi).toLocaleDateString('id-ID')}</p>
+                        <p><strong>Metode Pembayaran:</strong> ${metodeMap[paymentMethod]}</p>
+                    </div>
+                    <hr/>
+                    <div class="mb-2">${metodeDetail}</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='index.html'">Kembali ke Beranda</button>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    const bsModal = new bootstrap.Modal(modal);
+    bsModal.show();
+
+    modal.addEventListener('hidden.bs.modal', function () {
+        modal.remove();
+    });
+}
+
+        });
+    </script>
+</body>
+</html>
