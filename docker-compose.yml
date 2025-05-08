@@ -26,6 +26,7 @@ services:
       - POSTGRES_DB=donasi
     volumes:
       - postgres-data:/var/lib/postgresql/data
+      - ./image:/app/image
     networks:
       - donasi-network
     restart: always

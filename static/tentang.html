@@ -8,10 +8,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         :root {
-            --primary-color: #6ca82b;
-            --secondary-color: #f6f4e8;
+            --primary-color: #5c9f24;
+            --primary-light: #e5f2dc;
+            --secondary-color: #f8f7f2;
             --text-color: #333;
             --accent-color: #e78e6d;
+            --danger-color: #dc3545;
+            --donor-highlight: #8BC34A;
         }
         
         body {
@@ -23,29 +26,77 @@
         .navbar {
             background-color: var(--primary-color) !important;
             padding: 12px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         .navbar-brand {
-            font-weight: bold;
+            font-weight: 700;
             font-size: 24px;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            position: relative;
+            padding: 8px 16px !important;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 16px;
+            right: 16px;
+            height: 3px;
+            background-color: white;
+            border-radius: 3px 3px 0 0;
         }
         
         .header-banner {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), #8BC34A);
             color: white;
-            padding: 40px 0;
-            margin-bottom: 30px;
+            padding: 60px 0;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: url('/api/placeholder/1600/800') center/cover;
+            opacity: 0.1;
         }
         
         .header-banner h1 {
-            font-size: 32px;
-            font-weight: bold;
-            margin-bottom: 12px;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         .header-banner p {
             font-size: 18px;
-            margin-bottom: 0;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+        
+        .header-banner .btn {
+            padding: 12px 28px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .header-banner .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
         
         .content-card {
@@ -63,6 +114,63 @@
             margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 1px solid #eee;
+        }
+
+        .category-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+        
+        .category-img {
+            height: 180px;
+            overflow: hidden;
+        }
+        
+        .category-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .category-card:hover .category-img img {
+            transform: scale(1.05);
+        }
+        
+        .category-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .category-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #28a745; /* Using your primary color variable */
+        }
+        
+        .category-desc {
+            color: #666;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        
+        .btn-outline-primary {
+            align-self: flex-start;
         }
         
         .feature-box {
@@ -141,6 +249,22 @@
             padding: 20px;
             background-color: white;
         }
+
+        .testimonial-card {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+        }
         
         .category-title {
             font-weight: bold;
@@ -208,19 +332,278 @@
             color: var(--primary-color);
             margin-bottom: 10px;
         }
+
+        .testimonial-card {
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        .testimonial-author {
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .btn-primary:hover {
+            background-color: #5a9023;
+            border-color: #5a9023;
+        }
+
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10001;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 10px;
+            max-width: 480px;
+            width: 100%;
+            padding: 25px 30px;
+            box-shadow: 0 8px 25px rgb(0 0 0 / 0.15);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+            color: #1f2937;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #999;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #2563eb;
+        }
+
+        /* Form Styles */
+        #testimonialForm {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input-group-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .input-group-row .input-group {
+            flex: 1;
+            min-width: 150px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #374151;
+        }
+
+        input[type="text"], textarea {
+            padding: 10px 14px;
+            border: 1.5px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: #2563eb;
+            outline: none;
+            box-shadow: 0 0 8px rgba(37, 99, 235, 0.4);
+        }
+
+        textarea {
+            min-height: 100px;
+            line-height: 1.5;
+        }
+
+        .btn-submit {
+            align-self: flex-end;
+            padding: 10px 24px;
+            background-color: #6ca82b;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #57821b;
+        }
+
+        #testimonialSuccess {
+            margin-top: 15px;
+            padding: 12px;
+            background-color: #d1fae5;
+            border: 1.5px solid #10b981;
+            border-radius: 6px;
+            color: #065f46;
+            font-weight: 600;
+            display: none;
+            text-align: center;
+        }
+
+        /* Floating button bottom right */
+        #openTestimonialBtn {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 14px 24px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(108, 168, 43, 0.6);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1050;
+        }
+        #openTestimonialBtn:hover {
+            background-color: #57821b;
+            box-shadow: 0 8px 18px rgba(87, 130, 27, 0.8);
+        }
+
+        .footer {
+            background: linear-gradient(to right, #2c3e50, #4a6572);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer h5 {
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer h5::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-icon:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-link {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .footer-link:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .floating-donate-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--danger-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-donate-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+        }
+        
+        .floating-donate-btn i {
+            font-size: 24px;
+        }
+
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.html">Platform Donasi</a>
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-heart-fill me-2"></i>
+                Platform Donasi
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Beranda</a>
+                        <a class="nav-link " href="index.html">Beranda</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="donasi.html">Donasi Sekarang</a>
@@ -235,6 +618,7 @@
             </div>
         </div>
     </nav>
+
 
     <header class="header-banner">
         <div class="container text-center">
@@ -339,7 +723,9 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="category-card">
-                                <div class="category-img" style="background-image: url('/api/placeholder/400/320');"></div>
+                                <div class="category-img">
+                                    <img src="../static/image/pendidikan1.jpg" alt="Pendidikan" class="img-fluid w-100">
+                                </div>
                                 <div class="category-content">
                                     <h4 class="category-title">Pendidikan</h4>
                                     <p class="category-desc">Membantu anak-anak dari keluarga kurang mampu mendapatkan akses pendidikan yang layak.</p>
@@ -347,9 +733,12 @@
                                 </div>
                             </div>
                         </div>
+                    
                         <div class="col-md-3">
                             <div class="category-card">
-                                <div class="category-img" style="background-image: url('/api/placeholder/400/320');"></div>
+                                <div class="category-img">
+                                    <img src="../static/image/kesehatan.jpeg" alt="Pendidikan" class="img-fluid w-100">
+                                </div>
                                 <div class="category-content">
                                     <h4 class="category-title">Kesehatan</h4>
                                     <p class="category-desc">Memberikan layanan kesehatan dasar untuk masyarakat di daerah terpencil.</p>
@@ -359,7 +748,9 @@
                         </div>
                         <div class="col-md-3">
                             <div class="category-card">
-                                <div class="category-img" style="background-image: url('/api/placeholder/400/320');"></div>
+                                <div class="category-img">
+                                    <img src="../static/image/bencanaalam.jpg" alt="Pendidikan" class="img-fluid w-100">
+                                </div>
                                 <div class="category-content">
                                     <h4 class="category-title">Bencana Alam</h4>
                                     <p class="category-desc">Menyalurkan bantuan darurat untuk korban bencana alam di seluruh Indonesia.</p>
@@ -369,8 +760,12 @@
                         </div>
                         <div class="col-md-3">
                             <div class="category-card">
-                                <div class="category-img" style="background-image: url('/api/placeholder/400/320');"></div>
-                                <div class="category-content">
+                                <div class="category-card">
+                                    <div class="category-img">
+                                        <img src="../static/image/sosial.jpg" alt="Pendidikan" class="img-fluid w-100">
+                                    </div>
+                                    </div>
+                                    <div class="category-content">
                                     <h4 class="category-title">Sosial</h4>
                                     <p class="category-desc">Mendukung kelompok rentan seperti lansia, difabel, dan mereka yang terpinggirkan.</p>
                                     <a href="#" class="btn btn-outline-primary btn-sm">Selengkapnya</a>
@@ -431,29 +826,94 @@
             <div class="col-lg-6">
                 <div class="content-card">
                     <div class="section-title">Testimoni Donatur</div>
-                    
+                    <div id="testimonialContainer"></div>
                     <div class="testimonial-card">
                         <p class="testimonial-text">"Platform Donasi Komunitas memberikan saya kepercayaan penuh karena transparansi mereka. Saya bisa melacak kemana donasi saya disalurkan dan melihat dampak nyatanya."</p>
                         <div class="testimonial-author">- Dimas Kurniawan, Donatur Tetap</div>
+                        <div class="testimonial-actions">
+                            <button class="btn btn-outline-primary btn-sm reply-btn">Balas</button>
+                            <button class="btn btn-outline-secondary btn-sm">Suka</button>
+                        </div>
                     </div>
                     
                     <div class="testimonial-card">
                         <p class="testimonial-text">"Sebagai orang yang sibuk, saya menghargai kemudahan berdonasi melalui platform ini. Prosesnya cepat dan saya selalu mendapatkan laporan penggunaan dana secara rutin."</p>
                         <div class="testimonial-author">- Sulthan Juanda, Mahasiswa</div>
+                        <div class="testimonial-actions">
+                            <button class="btn btn-outline-primary btn-sm reply-btn">Balas</button>
+                            <button class="btn btn-outline-secondary btn-sm">Suka</button>
+                        </div>
                     </div>
                     
                     <div class="testimonial-card">
                         <p class="testimonial-text">"Saya telah berdonasi ke beberapa lembaga, tetapi Platform Donasi Komunitas adalah yang paling transparan. Saya bahkan diajak untuk mengunjungi lokasi penyaluran donasi secara langsung."</p>
                         <div class="testimonial-author">- Andrian Fakhruza, Pengusaha</div>
+                        <div class="testimonial-actions">
+                            <button class="btn btn-outline-primary btn-sm reply-btn">Balas</button>
+                            <button class="btn btn-outline-secondary btn-sm">Suka</button>
+                        </div>
                     </div>
                     
                     <div class="testimonial-card">
                         <p class="testimonial-text">"Sebagai mahasiswa dengan pendapatan terbatas, saya senang bisa ikut berdonasi dengan nominal kecil. Platform ini membuat saya merasa bahwa kontribusi sekecil apapun tetap berharga."</p>
                         <div class="testimonial-author">- Muhammad Alfitrah, Mahasiswa</div>
+                        <div class="testimonial-actions">
+                            <button class="btn btn-outline-primary btn-sm reply-btn">Balas</button>
+                            <button class="btn btn-outline-secondary btn-sm">Suka</button>
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
+        
+        </div>
+        
+        <!-- Floating button to open testimonial modal -->
+    <button id="openTestimonialBtn" aria-label="Kirim Testimoni">Kirim Testimoni</button>
+
+    <!-- Modal overlay -->
+    <div class="modal-overlay" id="testimonialModal" role="dialog" aria-modal="true" aria-labelledby="testimonialModalTitle" tabindex="-1">
+        <div class="modal">
+            <button class="modal-close" aria-label="Tutup Form Testimoni">&times;</button>
+            <h2 id="testimonialModalTitle">Kirim Testimoni Anda</h2>
+            <form id="testimonialForm" novalidate>
+                <div class="input-group-row">
+                    <div class="input-group">
+                        <label for="testimonialName">Nama <sup style="color:#e11d48">*</sup></label>
+                        <input
+                            type="text"
+                            id="testimonialName"
+                            name="testimonialName"
+                            placeholder="Nama Anda"
+                            required
+                            autocomplete="name"
+                        />
+                    </div>
+                    <div class="input-group">
+                        <label for="testimonialRole">Profesi/Peran</label>
+                        <input
+                            type="text"
+                            id="testimonialRole"
+                            name="testimonialRole"
+                            placeholder="Contoh: Mahasiswa, Pengusaha, dll"
+                            autocomplete="organization"
+                        />
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="testimonialMessage">Testimoni <sup style="color:#e11d48">*</sup></label>
+                    <textarea
+                        id="testimonialMessage"
+                        name="testimonialMessage"
+                        placeholder="Bagikan pengalaman Anda bersama kami..."
+                        required
+                    ></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Kirim Testimoni</button>
+                <div id="testimonialSuccess">Testimoni berhasil dikirim! Terima kasih atas feedback Anda.</div>
+            </form>
+        </div>
+    </div>
+
         
         <div class="row mb-5">
             <div class="col-lg-12">
@@ -492,39 +952,408 @@
         </div>
     </div>
     
-    <footer class="bg-dark text-white py-4">
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <h5>Platform Donasi Komunitas</h5>
-                    <p>Memberikan dampak positif untuk masyarakat melalui donasi yang terpercaya dan transparan.</p>
-                </div>
-                <div class="col-md-3">
-                    <h5>Tautan</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="index.html" class="text-white">Beranda</a></li>
-                        <li><a href="donasi.html" class="text-white">Donasi</a></li>
-                        <li><a href="transparansi.html" class="text-white">Transparansi</a></li>
-                        <li><a href="kontak.html" class="text-white">Kontak</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h5>Ikuti Kami</h5>
-                    <div class="d-flex">
-                        <a href="#" class="text-white me-3"><i class="bi bi-facebook fs-4"></i></a>
-                        <a href="#" class="text-white me-3"><i class="bi bi-instagram fs-4"></i></a>
-                        <a href="#" class="text-white me-3"><i class="bi bi-twitter fs-4"></i></a>
-                        <a href="#" class="text-white"><i class="bi bi-youtube fs-4"></i></a>
+                <div class="col-lg-4 mb-4">
+                    <h5>Tentang Platform Donasi</h5>
+                    <p class="text-white-50">Platform Donasi adalah platform penggalangan dana online yang berfokus pada transparansi dan efektivitas penyaluran bantuan untuk berbagai program sosial dan kemanusiaan di Indonesia.</p>
+                    <div class="d-flex gap-2 mt-3">
+                        <a href="#" class="footer-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="footer-icon"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="footer-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="footer-icon"><i class="bi bi-youtube"></i></a>
                     </div>
                 </div>
+                
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h5>Navigasi</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="footer-link">Beranda</a></li>
+                        <li><a href="donasi.html" class="footer-link">Donasi Sekarang</a></li>
+                        <li><a href="kampanye.html" class="footer-link">Kampanye</a></li>
+                        <li><a href="tentang.html" class="footer-link">Tentang Kami</a></li>
+                        <li><a href="kontak.html" class="footer-link">Kontak</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h5>Program</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="footer-link">Bantuan Bencana</a></li>
+                        <li><a href="#" class="footer-link">Pendidikan</a></li>
+                        <li><a href="#" class="footer-link">Kesehatan</a></li>
+                        <li><a href="#" class="footer-link">Pemberdayaan Ekonomi</a></li>
+                        <li><a href="#" class="footer-link">Keagamaan</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h5>Hubungi Kami</h5>
+                    <ul class="list-unstyled text-white-50">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> Jl. Banda Aceh-Medan Km. 280,3, Buketrata, Mesjid Punteut, Blang Mangat, Kota Lhokseumawe, 24301, Aceh, Indonesia</li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i> +6283848581998</li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i> info@kelompok1.id</li>
+                    </ul>
+                </div>
             </div>
-            <hr>
-            <div class="text-center">
-                <p class="mb-0">&copy; 2025 Kelompok 1. Hak Cipta Dilindungi.</p>
+            
+            <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
+            
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="text-white-50 mb-0">&copy; 2025 Platform Donasi Kelompok 1. Hak Cipta Dilindungi.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="kebijakan-privasi.html" class="footer-link me-3">Kebijakan Privasi</a>
+                    <a href="syarat-ketentuan.html" class="footer-link">Syarat & Ketentuan</a>
+                </div>
             </div>
         </div>
     </footer>
 
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+<script>
+    // JavaScript for handling form submissions and testimonial/journey interactions
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Testimonial form handling
+    const testimonialForm = document.getElementById('testimonialForm');
+    const testimonialSuccess = document.getElementById('testimonialSuccess');
+    const testimonialContainer = document.getElementById('testimonialContainer');
+
+    if (testimonialForm) {
+        testimonialForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('testimonialName').value;
+            const role = document.getElementById('testimonialRole').value || 'Donatur';
+            const message = document.getElementById('testimonialMessage').value;
+            
+            // Create new testimonial card
+            const newTestimonial = document.createElement('div');
+            newTestimonial.className = 'testimonial-card';
+            newTestimonial.innerHTML = `
+                <p class="testimonial-text">"${message}"</p>
+                <div class="testimonial-author">- ${name}, ${role}</div>
+                <div class="testimonial-actions">
+                    <button class="btn btn-outline-primary btn-sm reply-btn">Balas</button>
+                    <button class="btn btn-outline-secondary btn-sm">Suka</button>
+                </div>
+            `;
+            
+            // Add the new testimonial to the top of the container
+            testimonialContainer.insertBefore(newTestimonial, testimonialContainer.firstChild);
+            
+            // Reset form and show success message
+            testimonialForm.reset();
+            testimonialSuccess.classList.remove('d-none');
+            
+            // Hide success message after 3 seconds
+            setTimeout(function() {
+                testimonialSuccess.classList.add('d-none');
+            }, 3000);
+        });
+    }
+
+    // Journey/Timeline form handling
+    const journeyForm = document.getElementById('journeyForm');
+    const journeySuccess = document.getElementById('journeySuccess');
+    const timelineContainer = document.getElementById('timelineContainer');
+
+    if (journeyForm) {
+        journeyForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const date = document.getElementById('journeyDate').value;
+            const title = document.getElementById('journeyTitle').value;
+            const description = document.getElementById('journeyDescription').value;
+            const category = document.getElementById('journeyCategory').value;
+            
+            // Format date for display
+            const formattedDate = new Date(date).toLocaleDateString('id-ID', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+            
+            // Create new timeline point
+            const newTimelinePoint = document.createElement('div');
+            newTimelinePoint.className = 'timeline-point';
+            newTimelinePoint.innerHTML = `
+                <div class="timeline-year">${formattedDate}</div>
+                <p><strong>${title}</strong> - ${description}</p>
+            `;
+            
+            // Add the new timeline point to the top of the container
+            timelineContainer.insertBefore(newTimelinePoint, timelineContainer.firstChild);
+            
+            // Reset form and show success message
+            journeyForm.reset();
+            journeySuccess.classList.remove('d-none');
+            
+            // Hide success message after 3 seconds
+            setTimeout(function() {
+                journeySuccess.classList.add('d-none');
+            }, 3000);
+        });
+    }
+
+    // Reply buttons functionality for testimonials
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('reply-btn')) {
+            const testimonialCard = e.target.closest('.testimonial-card');
+            const author = testimonialCard.querySelector('.testimonial-author').textContent;
+            
+            // Check if reply form already exists
+            if (!testimonialCard.querySelector('.reply-form')) {
+                const replyForm = document.createElement('div');
+                replyForm.className = 'reply-form mt-3';
+                replyForm.innerHTML = `
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-sm" placeholder="Balas kepada ${author}...">
+                        <button class="btn btn-primary btn-sm send-reply">Kirim</button>
+                    </div>
+                `;
+                testimonialCard.appendChild(replyForm);
+            } else {
+                // Toggle reply form if it exists
+                const replyForm = testimonialCard.querySelector('.reply-form');
+                replyForm.classList.toggle('d-none');
+            }
+        }
+        
+        // Send reply functionality
+        if (e.target && e.target.classList.contains('send-reply')) {
+            const testimonialCard = e.target.closest('.testimonial-card');
+            const replyInput = testimonialCard.querySelector('.reply-form input').value;
+            
+            if (replyInput.trim() !== '') {
+                const replyElement = document.createElement('div');
+                replyElement.className = 'testimonial-reply mt-2 ms-3 p-2 border-start border-primary';
+                replyElement.innerHTML = `
+                    <p class="mb-1">${replyInput}</p>
+                    <small class="text-muted">Admin - Baru saja</small>
+                `;
+                
+                // Insert reply before the reply form
+                const replyForm = testimonialCard.querySelector('.reply-form');
+                testimonialCard.insertBefore(replyElement, replyForm);
+                
+                // Clear input
+                testimonialCard.querySelector('.reply-form input').value = '';
+                
+                // Hide reply form
+                replyForm.classList.add('d-none');
+            }
+        }
+    });
+
+    // Like button functionality
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('btn-outline-secondary')) {
+            e.target.innerHTML = e.target.innerHTML.includes('Suka') ? 
+                '<i class="bi bi-heart-fill text-danger"></i> Disukai' : 
+                'Suka';
+            
+            e.target.classList.toggle('liked');
+        }
+    });
+
+    // Form validation
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+});
+
+// Function to format currency (for donation forms)
+function formatCurrency(input) {
+    // Remove non-digit characters
+    let value = input.value.replace(/\D/g, '');
+    
+    // Format with thousand separator
+    value = new Intl.NumberFormat('id-ID').format(value);
+    
+    // Add currency symbol
+    input.value = 'Rp ' + value;
+}
+
+// Function to validate email format
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+// Function to get URL parameters (for campaign linking)
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    const results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+
+// Check if there's a campaign parameter and highlight the relevant category
+window.addEventListener('load', function() {
+    const campaign = getUrlParameter('campaign');
+    if (campaign) {
+        const categories = document.querySelectorAll('.category-card');
+        categories.forEach(category => {
+            if (category.querySelector('.category-title').textContent.toLowerCase().includes(campaign.toLowerCase())) {
+                category.classList.add('border-primary', 'border', 'shadow');
+                category.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    }
+});
+
+  const openBtn = document.getElementById('openTestimonialBtn');
+    const modalOverlay = document.getElementById('testimonialModal');
+    const closeBtn = modalOverlay.querySelector('.modal-close');
+    const testimonialForm = document.getElementById('testimonialForm');
+    const testimonialsList = document.getElementById('testimonialsList');
+    const successMsg = document.getElementById('testimonialSuccess');
+
+    // Open modal
+    openBtn.addEventListener('click', () => {
+        modalOverlay.classList.add('active');
+        modalOverlay.focus();
+        testimonialForm.querySelector('input, textarea').focus();
+        trapFocus(modalOverlay);
+    });
+
+    // Close modal
+    closeBtn.addEventListener('click', () => {
+        closeModal();
+    });
+
+    // Close modal on clicking outside modal content
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+            closeModal();
+        }
+    });
+
+    // Close modal function
+    function closeModal() {
+        modalOverlay.classList.remove('active');
+        removeFocusTrap();
+        successMsg.style.display = 'none';
+        testimonialForm.reset();
+        openBtn.focus();
+    }
+
+    // Trap focus inside modal for accessibility
+    let focusTrapHandler;
+    function trapFocus(element) {
+        const focusableElements = element.querySelectorAll(
+            'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]'
+        );
+        if (focusableElements.length === 0) return;
+
+        const firstFocusable = focusableElements[0];
+        const lastFocusable = focusableElements[focusableElements.length - 1];
+
+        focusTrapHandler = function (e) {
+            if (e.key === 'Tab' || e.keyCode === 9) {
+                if (e.shiftKey) {
+                    if (document.activeElement === firstFocusable) {
+                        e.preventDefault();
+                        lastFocusable.focus();
+                    }
+                } else {
+                    if (document.activeElement === lastFocusable) {
+                        e.preventDefault();
+                        firstFocusable.focus();
+                    }
+                }
+            }
+            if (e.key === "Escape" || e.key === "Esc" || e.keyCode === 27) {
+                closeModal();
+            }
+        };
+
+        element.addEventListener('keydown', focusTrapHandler);
+    }
+
+    // Remove the trap focus event listener
+    function removeFocusTrap() {
+        modalOverlay.removeEventListener('keydown', focusTrapHandler);
+    }
+
+    // Handle form submission
+    testimonialForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const name = testimonialForm.testimonialName.value.trim();
+        const role = testimonialForm.testimonialRole.value.trim();
+        const message = testimonialForm.testimonialMessage.value.trim();
+
+        if (!name || !message) {
+            alert('Mohon isi Nama dan Testimoni Anda.');
+            return;
+        }
+
+        // Create new testimonial card
+        const card = document.createElement('div');
+        card.className = 'testimonial-card';
+
+        const textP = document.createElement('p');
+        textP.className = 'testimonial-text';
+        textP.textContent = `"${message}"`;
+
+        const authorDiv = document.createElement('div');
+        authorDiv.className = 'testimonial-author';
+        authorDiv.textContent = `- ${name}${role ? ', ' + role : ''}`;
+
+        const actionsDiv = document.createElement('div');
+        actionsDiv.className = 'testimonial-actions';
+
+        const replyBtn = document.createElement('button');
+        replyBtn.className = 'btn btn-outline-primary btn-sm reply-btn';
+        replyBtn.type = 'button';
+        replyBtn.textContent = 'Balas';
+
+        const likeBtn = document.createElement('button');
+        likeBtn.className = 'btn btn-outline-secondary btn-sm like-btn';
+        likeBtn.type = 'button';
+        likeBtn.textContent = 'Suka';
+
+        actionsDiv.appendChild(replyBtn);
+        actionsDiv.appendChild(likeBtn);
+
+        card.appendChild(textP);
+        card.appendChild(authorDiv);
+        card.appendChild(actionsDiv);
+
+        testimonialsList.prepend(card);
+
+        // Show success message inside modal
+        successMsg.style.display = 'block';
+
+        testimonialForm.reset();
+
+        setTimeout(() => {
+            closeModal();
+        }, 2500);
+    });
+</script>
+
+<script>
+  
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

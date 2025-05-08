@@ -6,156 +6,578 @@
     <title>Platform Donasi Komunitas - Beranda</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="js/donasi.js"></script>
     <style>
         :root {
-            --primary-color: #6ca82b;
-            --secondary-color: #f6f4e8;
+            --primary-color: #5c9f24;
+            --primary-light: #e5f2dc;
+            --secondary-color: #f8f7f2;
             --text-color: #333;
             --accent-color: #e78e6d;
+            --danger-color: #dc3545;
+            --donor-highlight: #8BC34A;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--secondary-color);
+            font-family: 'Poppins', sans-serif;
+            background-color: #B4F8C8;
             color: var(--text-color);
         }
         
         .navbar {
             background-color: var(--primary-color) !important;
             padding: 12px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         .navbar-brand {
-            font-weight: bold;
+            font-weight: 700;
             font-size: 24px;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            position: relative;
+            padding: 8px 16px !important;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 16px;
+            right: 16px;
+            height: 3px;
+            background-color: white;
+            border-radius: 3px 3px 0 0;
         }
         
         .header-banner {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), #8BC34A);
             color: white;
-            padding: 40px 0;
-            margin-bottom: 30px;
+            padding: 60px 0;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: url('/api/placeholder/1600/800') center/cover;
+            opacity: 0.1;
         }
         
         .header-banner h1 {
-            font-size: 36px;
-            font-weight: bold;
-            margin-bottom: 10px;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         .header-banner p {
             font-size: 18px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+        
+        .header-banner .btn {
+            padding: 12px 28px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .header-banner .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
         
         .dashboard-card {
             background-color: white;
             border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border: none;
+        }
+        
+        .campaign-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: none;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .campaign-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+        
+        .campaign-image {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .campaign-image img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .campaign-card:hover .campaign-image img {
+            transform: scale(1.05);
+        }
+        
+        .campaign-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .campaign-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--danger-color);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            text-transform: uppercase;
+        }
+        
+        .campaign-progress {
+            margin: 15px 0;
+        }
+        
+        .progress {
+            height: 12px;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+        
+        .progress-bar {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .urgency-banner {
+            background: linear-gradient(to right, rgba(220, 53, 69, 0.05), rgba(220, 53, 69, 0.1));
+            border-left: 4px solid var(--danger-color);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .countdown-timer {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--danger-color);
+            letter-spacing: 1px;
+        }
+        
+        .quick-donate-card {
+            background: linear-gradient(135deg, #ff6b6b, #dc3545);
+            border-radius: 15px;
             padding: 25px;
             margin-bottom: 25px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            color: white;
+            box-shadow: 0 8px 20px rgba(220, 53, 69, 0.2);
+            border: none;
         }
         
-        .total-donasi {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
+        .quick-donate-title {
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 22px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
         
-        .amount {
-            font-size: 38px;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 20px;
+        .donate-amount-btn {
+            border: 2px solid rgba(255,255,255,0.5);
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            font-weight: 600;
+            padding: 10px 0;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+        
+        .donate-amount-btn:hover, .donate-amount-btn.active {
+            background-color: white;
+            color: var(--danger-color);
+            border-color: white;
+            transform: translateY(-2px);
+        }
+        
+        .testimonial-slider {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        
+        .testimonial-item {
+            background-color: var(--primary-light);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .testimonial-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin-right: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            border: 2px solid white;
+        }
+        
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .updates-timeline {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        
+        .timeline-item {
+            padding-left: 30px;
+            border-left: 2px solid var(--primary-color);
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -11px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px rgba(108, 168, 43, 0.2);
+        }
+        
+        .timeline-date {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+            font-weight: 500;
         }
         
         .section-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        
-        .chart-container {
-            height: 300px;
-            position: relative;
-            margin-bottom: 20px;
-        }
-        
-        .category-item {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
+            color: #333;
+            position: relative;
         }
         
-        .category-color {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            margin-right: 10px;
+        .section-title i {
+            margin-right: 12px;
+            color: var(--primary-color);
+            background-color: var(--primary-light);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
         }
-        
-        .category-name {
-            flex: 1;
-        }
-        
-        .category-percent {
-            font-weight: 600;
-        }
-        
-        .illustration {
-            text-align: center;
-            margin: 20px 0;
-        }
-        
-        .illustration img {
-            max-width: 100%;
-            height: auto;
-        }
-        
-        .bencana { background-color: #ff9a76; }
-        .pendidikan { background-color: #78c6a3; }
-        .kesehatan { background-color: #93b5e1; }
-        .sosial { background-color: #ededed; }
         
         .btn-primary {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
+            font-weight: 600;
+            padding: 10px 20px;
         }
         
         .btn-primary:hover {
-            background-color: #5a8e24;
-            border-color: #5a8e24;
+            background-color: #4a8420;
+            border-color: #4a8420;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         
-        .action-button {
-            margin-top: 20px;
+        .btn-danger {
+            background-color: var(--danger-color);
+            border-color: var(--danger-color);
+            font-weight: 600;
         }
         
-        .stats-item {
-            text-align: center;
-            padding: 15px;
-            border-radius: 10px;
-            background-color: rgba(108, 168, 43, 0.1);
-            margin-bottom: 15px;
-        }
-        
-        .stats-number {
-            font-size: 28px;
-            font-weight: bold;
+        .btn-outline-primary {
             color: var(--primary-color);
+            border-color: var(--primary-color);
+            font-weight: 600;
         }
         
-        .stats-label {
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* Donor list styling */
+        .donor-list {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        
+        .donor-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .donor-item:last-child {
+            border-bottom: none;
+        }
+        
+        .donor-item:hover {
+            background-color: var(--primary-light);
+        }
+        
+        .donor-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            border: 2px solid white;
+        }
+        
+        .donor-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .donor-info {
+            flex-grow: 1;
+        }
+        
+        .donor-name {
+            font-weight: 600;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .donor-badge {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 8px;
+            background-color: var(--donor-highlight);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .donor-campaign {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 0;
+        }
+        
+        .donor-amount {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 16px;
+        }
+        
+        .donor-time {
+            font-size: 12px;
+            color: #999;
+            font-weight: 400;
+        }
+        
+        .donor-highlight {
+            background-color: rgba(139, 195, 74, 0.1);
+            border-left: 3px solid var(--donor-highlight);
+        }
+        
+        .donor-stats {
+            display: flex;
+            justify-content: space-between;
+            background-color: var(--primary-light);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
             font-size: 14px;
-            color: var(--text-color);
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .icon-badge {
+            width: 26px;
+            height: 26px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(108, 168, 43, 0.15);
+            color: var(--primary-color);
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+        
+        .footer {
+            background: linear-gradient(to right, #2c3e50, #4a6572);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer h5 {
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer h5::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-icon:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-link {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .footer-link:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .floating-donate-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--danger-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-donate-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+        }
+        
+        .floating-donate-btn i {
+            font-size: 24px;
         }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.html">Platform Donasi</a>
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-heart-fill me-2"></i>
+                Platform Donasi
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -181,256 +603,593 @@
     <header class="header-banner">
         <div class="container text-center">
             <h1>Platform Donasi Komunitas</h1>
-            <p>Bersama kita bantu mereka yang membutuhkan</p>
-            <a href="donasi.html" class="btn btn-light btn-lg">Donasi Sekarang</a>
+            <p>Bersama kita bantu mereka yang membutuhkan dengan donasi yang aman dan transparan</p>
+            <a href="donasi.html" class="btn btn-light btn-lg">
+                <i class="bi bi-heart-fill me-2"></i>Donasi Sekarang
+            </a>
         </div>
+        
     </header>
 
     <div class="container">
+        <!-- Daftar Donatur Terbaru -->
         <div class="row mb-4">
-            <div class="col-md-4">
-                <div class="stats-item">
-                    <div class="stats-number">Rp 9.800.000</div>
-                    <div class="stats-label">Total Donasi Terkumpul</div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="stats-item">
-                    <div class="stats-number">57</div>
-                    <div class="stats-label">Jumlah Donatur</div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="stats-item">
-                    <div class="stats-number">12</div>
-                    <div class="stats-label">Penerima Manfaat</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-6">
-                <div class="dashboard-card">
-                    <div class="section-title">Distribusi Donasi per Kategori</div>
-                    <div class="chart-container" style="max-width: 400px; margin: auto;">
-                        <svg viewBox="0 0 400 400" width="100%" height="auto">
-                            <!-- Definisi bayangan -->
-                            <defs>
-                                <filter id="shadow" x="-20%" y="-20%" width="150%" height="150%">
-                                    <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#000" flood-opacity="0.15"/>
-                                </filter>
-                            </defs>
-                    
-                            <!-- Bencana Alam (31.2%) - Oranye -->
-                            <path d="M200,200 L200,50 A150,150 0 0,1 328.5,275 Z"
-                                  fill="#ff9a76" stroke="#fff" stroke-width="2" filter="url(#shadow)" />
-                    
-                            <!-- Pendidikan (40.3%) - Hijau -->
-                            <path d="M200,200 L328.5,275 A150,150 0 0,1 115,323.5 Z"
-                                  fill="#78c6a3" stroke="#fff" stroke-width="2" filter="url(#shadow)" />
-                    
-                            <!-- Kesehatan (28.5%) - Biru -->
-                            <path d="M200,200 L115,323.5 A150,150 0 0,1 200,50 Z"
-                                  fill="#93b5e1" stroke="#fff" stroke-width="2" filter="url(#shadow)" />
-                    
-                            <!-- Lingkaran tengah -->
-                            <circle cx="200" cy="200" r="70" fill="#ffffff" stroke="#eee" stroke-width="1" />
-                    
-                            <!-- Label tahun -->
-                            <text x="200" y="205" text-anchor="middle"
-                                  font-size="20" font-weight="bold" fill="#333" font-family="Arial, sans-serif">
-                                2025
-                            </text>
-                        </svg>
-                    </div>
-                    
-                    
-                    <div class="category-legend">
-                        <div class="category-item">
-                            <div class="category-color" style="background-color: #ff9a76;"></div>
-                            <div class="category-name">Bencana</div>
-                            <div class="category-percent">31.2%</div>
-                        </div>
-                        <div class="category-item">
-                            <div class="category-color" style="background-color: #78c6a3;"></div>
-                            <div class="category-name">Pendidikan</div>
-                            <div class="category-percent">40.3%</div>
-                        </div>
-                        <div class="category-item">
-                            <div class="category-color" style="background-color: #93b5e1;"></div>
-                            <div class="category-name">Kesehatan</div>
-                            <div class="category-percent">28.5%</div>
-                        </div>
-                    </div>
-                    
-                    <div class="action-button text-center">
-                        <a href="transparansi.html" class="btn btn-outline-primary">Lihat Detail Transparansi</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="dashboard-card">
-                    <div class="section-title">Tentang Platform Donasi</div>
-                    
-                    <div class="illustration">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400">
-                            <!-- Background elements -->
-                            <ellipse cx="250" cy="350" rx="200" ry="50" fill="#edce93" opacity="0.3" />
-                            
-                            <!-- Mosque silhouette in background -->
-                            <path d="M300,200 Q320,150 340,200 L340,300 L300,300 Z" fill="#ba8e68" opacity="0.7" />
-                            <path d="M340,180 Q370,100 400,180 L400,300 L340,300 Z" fill="#926b4f" opacity="0.7" />
-                            <ellipse cx="370" cy="100" rx="20" ry="20" fill="#f5f5f5" />
-                            
-                            <!-- Plants -->
-                            <path d="M420,300 C440,260 460,280 450,300" stroke="#6ca82b" stroke-width="4" fill="none" />
-                            <path d="M430,300 C450,250 470,270 460,300" stroke="#6ca82b" stroke-width="4" fill="none" />
-                            <path d="M440,300 C460,270 480,290 470,300" stroke="#6ca82b" stroke-width="4" fill="none" />
-                            
-                            <!-- Elderly person sitting -->
-                            <ellipse cx="210" cy="300" rx="30" ry="10" fill="#6b88a0" opacity="0.5" />
-                            <rect x="200" y="240" width="20" height="60" rx="10" fill="#75a9d1" />
-                            <circle cx="210" cy="230" r="20" fill="#f5d7b5" />
-                            <path d="M195,225 Q210,235 225,225" stroke="#333" stroke-width="1" fill="none" />
-                            <rect x="190" y="240" width="40" height="30" rx="5" fill="#75a9d1" />
-                            <rect x="185" y="270" width="50" height="15" rx="7" fill="#5d87a8" />
-                            <rect x="195" y="285" width="15" height="15" fill="#f5d7b5" />
-                            <rect x="210" y="285" width="15" height="15" fill="#f5d7b5" />
-                            
-                            <!-- Person helping -->
-                            <ellipse cx="280" cy="310" rx="20" ry="5" fill="#6b88a0" opacity="0.5" />
-                            <rect x="270" y="230" width="20" height="80" rx="10" fill="#8a5a44" />
-                            <circle cx="280" cy="210" r="20" fill="#f5d7b5" />
-                            <path d="M270,205 Q280,215 290,205" stroke="#333" stroke-width="1" fill="none" />
-                            <rect x="255" y="230" width="50" height="40" rx="5" fill="#8a5a44" />
-                            <rect x="270" y="270" width="20" height="40" fill="#5d4037" />
-                            <rect x="255" y="240" width="15" height="40" rx="5" fill="#8a5a44" />
-                            <path d="M255,250 L220,240" stroke="#8a5a44" stroke-width="10" stroke-linecap="round" />
-                        </svg>
-                    </div>
-                    
-                    <p>Platform Donasi Komunitas adalah platform yang bertujuan mempertemukan para donatur dengan mereka yang membutuhkan. Kami fokus pada empat kategori utama: bencana alam, pendidikan, kesehatan, dan sosial.</p>
-                    
-                    <div class="action-button text-center">
-                        <a href="tentang.html" class="btn btn-outline-primary">Pelajari Lebih Lanjut</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="row mt-4">
             <div class="col-12">
                 <div class="dashboard-card">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <div class="section-title mb-0">Daftar Donasi Terbaru</div>
-                        <a href="donasi.html" class="btn btn-primary">Donasi Sekarang</a>
+                    <div class="section-title">
+                        <i class="bi bi-people-fill"></i>
+                        Donatur Terbaru
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-striped" id="donasiTable">
-                            <thead>
-                                <tr>
-                                    <th>Nama</th>
-                                    <th>Jumlah</th>
-                                    <th>Kategori</th>
-                                    <th>Tanggal</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Ahmad Fauzi</td>
-                                    <td>Rp 1.500.000</td>
-                                    <td>Pendidikan</td>
-                                    <td>10 April 2025</td>
-                                </tr>
-                                <tr>
-                                    <td>Siti Nurhaliza</td>
-                                    <td>Rp 2.000.000</td>
-                                    <td>Bencana Alam</td>
-                                    <td>9 April 2025</td>
-                                </tr>
-                                <tr>
-                                    <td>Budi Santoso</td>
-                                    <td>Rp 500.000</td>
-                                    <td>Kesehatan</td>
-                                    <td>8 April 2025</td>
-                                </tr>
-                                <tr>
-                                    <td>Maya Wijaya</td>
-                                    <td>Rp 750.000</td>
-                                    <td>Pendidikan</td>
-                                    <td>7 April 2025</td>
-                                </tr>
-                                <tr>
-                                    <td>Rudi Hartono</td>
-                                    <td>Rp 1.000.000</td>
-                                    <td>Sosial</td>
-                                    <td>6 April 2025</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    
+                    <div class="donor-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">{{.TotalDonatur}}</div>
+                            <div class="stat-label">Total Donatur</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">{{.TotalDonasi}}</div>
+                            <div class="stat-label">Total Donasi</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">{{.KampanyeAktif}}</div>
+                            <div class="stat-label">Kampanye Aktif</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">{{.TingkatPenyaluran}}</div>
+                            <div class="stat-label">Tingkat Penyaluran</div>
+                        </div>
                     </div>
-                    <div class="text-center mt-3">
-                        <a href="riwayat-donasi.html" class="btn btn-outline-primary">Lihat Semua Donasi</a>
+                    
+                    <div class="row">
+                        {{range $index, $donatur := .Donatur}}
+                        <div class="col-md-6 mb-4">
+                            <div class="donor-item {{if $donatur.IsTopDonatur}}donor-highlight{{end}}">
+                                <div class="donor-avatar">
+                                    <img src="./image/orang.jpg" alt="{{$donatur.Nama}}">
+                                </div>
+                                <div class="donor-info">
+                                    <div class="donor-name">
+                                        {{$donatur.Nama}}
+                                        {{if $donatur.IsTopDonatur}}
+                                        <span class="donor-badge">Top Donatur</span>
+                                        {{end}}
+                                    </div>
+                                    <div class="donor-campaign">{{$donatur.KampanyeNama}}</div>
+                                </div>
+                                <div class="text-end">
+                                    <div class="donor-amount">{{$donatur.JumlahFormatted}}</div>
+                                    <div class="donor-time">{{$donatur.WaktuRelative}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        {{end}}
+                    </div>
+
+                    <div class="text-center">
+                        <a href="/semua-donatur" class="btn btn-outline-primary">
+                            <i class="bi bi-people me-2"></i>Lihat Semua Donatur
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bagian Kampanye Mendesak -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="dashboard-card">
+                    <div class="section-title">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        donasi Mendesak
+                    </div>
+                    
+                    <div class="urgent-campaigns">
+                        {{range .UrgentCampaigns}}
+                        <div class="card mb-4 campaign-card">
+                            <div class="row g-0">
+                                <div class="col-md-5">
+                                    <div class="campaign-image">
+                                        <img src="{{.ImagePath}}" alt="{{.Title}}" class="img-fluid">
+                                        <span class="campaign-badge">MENDESAK</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="card-body">
+                                        <h3>{{.Title}}</h3>
+                                        <p>{{.Description}}</p>
+                                        
+                                        <!-- Campaign Progress -->
+                                        <div class="campaign-progress">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <span>Terkumpul: <strong>{{.CurrentFormatted}}</strong></span>
+                                                <span>Target: {{.TargetFormatted}}</span>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" 
+                                                     role="progressbar" style="width: 75%" 
+                                                     aria-valuenow="{{.Progress}}" aria-valuemin="0" aria-valuemax="100">
+                                                    {{.Progress}}%
+                                                </div>
+                                            </div>
+                                            <div class="text-end mt-1">
+                                                <small>Sisa waktu: <span class="text-danger">{{.TimeRemaining}}</span></small>
+                                            </div>
+                                        </div>
+            
+                                        <!-- Urgency Banner -->
+                                        <div class="urgency-banner">
+                                            <i class="bi bi-alarm fs-4 me-3"></i>
+                                            <div>
+                                                <h6 class="mb-1">PENGGALANGAN SEGERA BERAKHIR!</h6>
+                                                <div class="countdown-timer">{{.CountdownTimer}}</div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="d-flex gap-2 mt-3">
+                                            <a href="/detail_donasi/{{.ID}}" class="btn btn-outline-primary">
+                                                <i class="bi bi-info-circle me-2"></i>Detail Donasi
+                                            </a>
+                                            <a href="/donasi?campaign={{.ID}}" class="btn btn-danger">
+                                                <i class="bi bi-heart-fill me-2"></i>Donasi Sekarang
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{end}}
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                   
+                    
+        
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <div class="dashboard-card">
+                    <div class="section-title">
+                        <i class="bi bi-collection"></i>
+                        Donasi Aktif
+                    </div>
+                    
+                    <div class="row">
+                        <!-- Kampanye 1 -->
+                        {{range .NonUrgentCampaigns}}
+                        <div class="col-md-6 mb-4">
+                            <div class="campaign-card">
+                                <div class="campaign-image">
+                                    <img src="{{.ImagePath}}" alt="{{.Title}}">
+                                </div>
+                                <div class="campaign-content">
+                                    <h5>{{.Title}}</h5>
+                                    <p>{{.Description}}</p>
+                                    
+                                    <div class="campaign-progress mt-auto">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Terkumpul: <strong>{{.CurrentFormatted}}</strong></span>
+                                            <span>Target: {{.TargetFormatted}}</span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar" 
+                                                 role="progressbar" style="width: 75%" 
+                                                 aria-valuenow="{{.Progress}}" aria-valuemin="0" aria-valuemax="100">
+                                                {{.Progress}}%
+                                            </div>
+                                        </div>
+                                        <div class="text-end mt-1">
+                                            <small>Sisa waktu: {{.TimeRemaining}}</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-grid mt-3">
+                                        <a href="/detail_donasi/{{.ID}}" class="btn btn-outline-primary btn-sm">
+                                            <i class="bi bi-info-circle me-1"></i>Detail
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{end}}
+                    </div>
+                    
+                    <!-- <div class="text-center mt-4">
+                        <a href="/" class="btn btn-primary">
+                            <i class="bi bi-house me-2"></i>Kembali ke Beranda
+                        </a>
+                    </div>
+                </div> -->
+            </div>
+            </div>
+
+            
+
+                       
+            
+            <div class="col-md-4">
+                <!-- Quick Donate Card -->
+                <div class="quick-donate-card">
+                    <h5 class="quick-donate-title">
+                        <i class="bi bi-lightning-charge-fill me-2"></i>
+                        DONASI KILAT
+                    </h5>
+                    
+                    <div class="mb-3">
+                        <label for="customAmount" class="form-label text-white">Jumlah Donasi (Rp)</label>
+                        <input type="number" class="form-control" id="customAmount" placeholder="Masukkan jumlah">
+                    </div>
+                    
+                    <div class="row g-2 mb-3">
+                        <div class="col-4">
+                            <button type="button" class="btn donate-amount-btn w-100">50.000</button>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn donate-amount-btn w-100">100.000</button>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn donate-amount-btn w-100">250.000</button>
+                        </div>
+                        <!-- Melanjutkan dari kode sebelumnya: bagian col-4 yang terpotong -->
+                        <div class="col-4">
+                            <button type="button" class="btn donate-amount-btn w-100">500.000</button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <select class="form-select" id="campaignSelect">
+                            <option selected>Pilih Kampanye</option>
+                            <option value="1">Bantuan Banjir Hagu</option>
+                            <option value="2">Beasiswa untuk Anak Pedalaman</option>
+                            <option value="3">Renovasi Masjid Desa</option>
+                            <option value="4">Pengobatan untuk Lansia</option>
+                            <option value="5">Bantuan Korban Gempa Hagu</option>
+                        </select>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="button" class="btn btn-light">
+                            <i class="bi bi-heart-fill me-2"></i>Donasi Sekarang
+                        </button>
+                    </div>
+                </div>
+                
+               
+                
+                <!-- Updates Timeline -->
+                <div class="updates-timeline">
+                    <div class="section-title">
+                        <i class="bi bi-newspaper"></i>
+                        Update Terbaru
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">
+                            <i class="bi bi-calendar-event me-1"></i>
+                            3 Mei 2025
+                        </div>
+                        <h6>Distribusi Bantuan Banjir Tahap 2</h6>
+                        <p>Tim relawan telah menyalurkan bantuan makanan, selimut, dan obat-obatan kepada 250 keluarga di Kalimantan Selatan.</p>
+                        <!-- <a href="#" class="btn btn-sm btn-outline-primary">Baca Selengkapnya</a> -->
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">
+                            <i class="bi bi-calendar-event me-1"></i>
+                            1 Mei 2025
+                        </div>
+                        <h6>Kampanye Baru: Bantuan Medis Lansia</h6>
+                        <p>Kami membuka kampanye baru untuk membantu biaya pengobatan lansia kurang mampu di Panti Jompo Harapan Ibu.</p>
+                        <!-- <a href="#" class="btn btn-sm btn-outline-primary">Baca Selengkapnya</a> -->
+                    </div>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">
+                            <i class="bi bi-calendar-event me-1"></i>
+                            28 April 2025
+                        </div>
+                        <h6>Laporan Keuangan April 2025</h6>
+                        <p>Laporan keuangan untuk periode April 2025 telah dipublikasikan dan dapat diakses di halaman transparansi.</p>
+                        <!-- <a href="#" class="btn btn-sm btn-outline-primary">Baca Selengkapnya</a> -->
+                    </div>
+                    
+                    <!-- <div class="text-center mt-3">
+                        <a href="update.html" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-newspaper me-1"></i>Lihat Semua Update
+                        </a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- CTA Section -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="dashboard-card text-center py-5" style="background: linear-gradient(135deg, var(--primary-light), #e8f3e5);">
+                    <h2 class="mb-4">Jadi Bagian dari Perubahan</h2>
+                    <p class="lead mb-4">Donasi Anda, sekecil apapun, dapat membuat perbedaan besar bagi mereka yang membutuhkan.</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="donasi.html" class="btn btn-primary btn-lg">
+                            <i class="bi bi-heart-fill me-2"></i>Donasi Sekarang
+                        </a>
+                        <!-- <a href="kampanye.html" class="btn btn-outline-primary btn-lg">
+                            <i class="bi bi-megaphone me-2"></i>Buat Kampanye
+                        </a> -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="bg-dark text-white py-4">
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <h5>Platform Donasi Komunitas</h5>
-                    <p>Memberikan dampak positif untuk masyarakat melalui donasi yang terpercaya dan transparan.</p>
-                </div>
-                <div class="col-md-3">
-                    <h5>Tautan</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="index.html" class="text-white">Beranda</a></li>
-                        <li><a href="donasi.html" class="text-white">Donasi</a></li>
-                        <li><a href="transparansi.html" class="text-white">Transparansi</a></li>
-                        <li><a href="kontak.html" class="text-white">Kontak</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h5>Ikuti Kami</h5>
-                    <div class="d-flex">
-                        <a href="#" class="text-white me-3"><i class="bi bi-facebook fs-4"></i></a>
-                        <a href="#" class="text-white me-3"><i class="bi bi-instagram fs-4"></i></a>
-                        <a href="#" class="text-white me-3"><i class="bi bi-twitter fs-4"></i></a>
-                        <a href="#" class="text-white"><i class="bi bi-youtube fs-4"></i></a>
+                <div class="col-lg-4 mb-4">
+                    <h5>Tentang Platform Donasi</h5>
+                    <p class="text-white-50">Platform Donasi adalah platform penggalangan dana online yang berfokus pada transparansi dan efektivitas penyaluran bantuan untuk berbagai program sosial dan kemanusiaan di Indonesia.</p>
+                    <div class="d-flex gap-2 mt-3">
+                        <a href="#" class="footer-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="footer-icon"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="footer-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="footer-icon"><i class="bi bi-youtube"></i></a>
                     </div>
                 </div>
+                
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h5>Navigasi</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="footer-link">Beranda</a></li>
+                        <li><a href="donasi.html" class="footer-link">Donasi Sekarang</a></li>
+                        <li><a href="kampanye.html" class="footer-link">Kampanye</a></li>
+                        <li><a href="tentang.html" class="footer-link">Tentang Kami</a></li>
+                        <li><a href="kontak.html" class="footer-link">Kontak</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h5>Program</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="footer-link">Bantuan Bencana</a></li>
+                        <li><a href="#" class="footer-link">Pendidikan</a></li>
+                        <li><a href="#" class="footer-link">Kesehatan</a></li>
+                        <li><a href="#" class="footer-link">Pemberdayaan Ekonomi</a></li>
+                        <li><a href="#" class="footer-link">Keagamaan</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h5>Hubungi Kami</h5>
+                    <ul class="list-unstyled text-white-50">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> Jl. Banda Aceh-Medan Km. 280,3, Buketrata, Mesjid Punteut, Blang Mangat, Kota Lhokseumawe, 24301, Aceh, Indonesia</li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i> +6283848581998</li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i> info@kelompok1.id</li>
+                    </ul>
+                </div>
             </div>
-            <hr>
-            <div class="text-center">
-                <p class="mb-0">&copy; 2025 Kelompok 1. Hak Cipta Dilindungi.</p>
+            
+            <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
+            
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="text-white-50 mb-0">&copy; 2025 Platform Donasi Kelompok 1. Hak Cipta Dilindungi.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="kebijakan-privasi.html" class="footer-link me-3">Kebijakan Privasi</a>
+                    <a href="syarat-ketentuan.html" class="footer-link">Syarat & Ketentuan</a>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- Floating Donate Button -->
+    <a href="donasi.html" class="floating-donate-btn">
+        <i class="bi bi-heart-fill"></i>
+    </a>
 
+    <!-- Bootstrap Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom Script for Countdown -->
     <script>
-        // dashboard.js
+        // Countdown Timer Function
+        function updateCountdown() {
+            // Set the target date (3 days, 12 hours from now)
+            const targetDate = new Date();
+            targetDate.setDate(targetDate.getDate() + 3);
+            targetDate.setHours(targetDate.getHours() + 12);
+            
+            // Calculate remaining time
+            const now = new Date();
+            const diff = targetDate - now;
+            
+            // Calculate days, hours, minutes, seconds
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            // Format with leading zeros
+            const formattedDays = String(days).padStart(2, '0');
+            const formattedHours = String(hours).padStart(2, '0');
+            const formattedMinutes = String(minutes).padStart(2, '0');
+            const formattedSeconds = String(seconds).padStart(2, '0');
+            
+            // Update the countdown display
+            document.getElementById('countdown').textContent = 
+                `${formattedDays}:${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+        }
+        
+        // Initial call and set interval
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            
+            // Amount selection buttons
+            const amountButtons = document.querySelectorAll('.donate-amount-btn');
+            const customAmountInput = document.getElementById('customAmount');
+            
+            amountButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    amountButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Set the amount in the input field
+                    customAmountInput.value = this.textContent.replace(/\D/g, '');
+                });
+            });
+        });
+
+        
+    </script>
+
+    <script>
+        window.onload = function() {
+            const countdownElement = document.getElementById('countdown');
+            const targetTime = new Date().getTime() + (3 * 24 * 60 * 60 * 1000) + (12 * 60 * 60 * 1000);
+    
+            const updateCountdown = () => {
+                const now = new Date().getTime();
+                const distance = targetTime - now;
+    
+                if (distance <= 0) {
+                    countdownElement.innerHTML = "00:00:00:00";
+                    clearInterval(timer);
+                    return;
+                }
+    
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+                countdownElement.innerHTML =
+                    String(days).padStart(2, '0') + ":" +
+                    String(hours).padStart(2, '0') + ":" +
+                    String(minutes).padStart(2, '0') + ":" +
+                    String(seconds).padStart(2, '0');
+            };
+    
+            const timer = setInterval(updateCountdown, 1000);
+            updateCountdown();
+        };
+    </script>
+    
+    <script>
+        // Script to update countdown timer
+        function updateCountdown() {
+            const countdown = document.querySelector('.countdown-timer');
+            if (countdown) {
+                const parts = countdown.textContent.split(':');
+                let days = parseInt(parts[0]);
+                let hours = parseInt(parts[1]);
+                let minutes = parseInt(parts[2]);
+                let seconds = parseInt(parts[3]);
+                
+                // Decrease one second
+                seconds--;
+                
+                // Adjust as needed
+                if (seconds < 0) {
+                    seconds = 59;
+                    minutes--;
+                }
+                
+                if (minutes < 0) {
+                    minutes = 59;
+                    hours--;
+                }
+                
+                if (hours < 0) {
+                    hours = 23;
+                    days--;
+                }
+                
+                // Update display
+                countdown.textContent = `${days.toString().padStart(2, '0')}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }
+        
+        // Update every second
+        setInterval(updateCountdown, 1000);
+        
+        // Handle donation buttons
+        document.querySelectorAll('.donation-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const amount = this.dataset.amount;
+                document.getElementById('customAmount').value = amount;
+                
+                // Remove active class from all buttons
+                document.querySelectorAll('.donation-btn').forEach(btn => {
+                    btn.classList.remove('active', 'btn-primary');
+                    btn.classList.add('btn-outline-secondary');
+                });
+                
+                // Add active class to clicked button
+                this.classList.remove('btn-outline-secondary');
+                this.classList.add('active', 'btn-primary');
+            });
+        });
+    </script>
+
+    <script>
+        // Add this script to the page containing the quick-donate-card
 document.addEventListener('DOMContentLoaded', function() {
-    fetchDashboardStats();
-});
-
-// Fungsi untuk memformat angka rupiah
-function formatRupiah(angka) {
-    return new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
-        minimumFractionDigits: 0
-    }).format(angka).replace(/\s/g, '');
-}
-
-// Fungsi untuk mengambil statistik dashboard dari API
-function fetchDashboardStats() {
-    fetch('/api/dashboard/stats')
+    const quickDonateForm = document.querySelector('.quick-donate-card');
+    const customAmountInput = document.getElementById('customAmount');
+    const amountButtons = document.querySelectorAll('.donate-amount-btn');
+    const campaignSelect = document.getElementById('campaignSelect');
+    const donateButton = document.querySelector('.quick-donate-card .btn-light');
+    
+    // Set amount when clicking on preset buttons
+    amountButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            amountButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Set the amount value in the input field
+            const amount = this.textContent.replace(/\D/g, ''); // Remove non-digit characters
+            customAmountInput.value = amount;
+        });
+    });
+    
+    // Handle donation submission
+    donateButton.addEventListener('click', function() {
+        const amount = parseFloat(customAmountInput.value);
+        const campaignId = parseInt(campaignSelect.value);
+        
+        // Validate amount
+        if (!amount || amount <= 0) {
+            alert('Mohon masukkan jumlah donasi yang valid');
+            return;
+        }
+        
+        // Create donation data
+        const donationData = {
+            jumlah: amount,
+            kampanye_id: isNaN(campaignId) ? 0 : campaignId
+        };
+        
+        // Show loading state
+        donateButton.disabled = true;
+        donateButton.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Memproses...';
+        
+        // Send request to server
+        fetch('/api/quick-donate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(donationData)
+        })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -438,68 +1197,278 @@ function fetchDashboardStats() {
             return response.json();
         })
         .then(data => {
-            updateDashboardStats(data);
-            updateDistribusiChart(data.distribusi_kategori);
+            // Show success message
+            alert('Donasi berhasil! Terima kasih atas kebaikan Anda.');
+            
+            // Reset form
+            customAmountInput.value = '';
+            campaignSelect.selectedIndex = 0;
+            amountButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Reload the page to refresh the latest donors list
+            window.location.reload();
         })
         .catch(error => {
-            console.error('Error fetching dashboard stats:', error);
-            // Menampilkan pesan error jika terjadi masalah
-            document.querySelector('.container').insertAdjacentHTML(
-                'afterbegin',
-                `<div class="alert alert-danger">Gagal memuat data dashboard: ${error.message}</div>`
-            );
+            console.error('Error submitting donation:', error);
+            alert('Maaf, terjadi kesalahan saat memproses donasi. Silakan coba lagi.');
+        })
+        .finally(() => {
+            // Reset button state
+            donateButton.disabled = false;
+            donateButton.innerHTML = '<i class="bi bi-heart-fill me-2"></i>Donasi Sekarang';
         });
-}
-
-function updateDashboardStats(data) {
-    const statsNumbers = document.querySelectorAll('.stats-number');
-    if (statsNumbers.length >= 3) {
-        statsNumbers[0].textContent = formatRupiah(data.total_donasi);
-        statsNumbers[1].textContent = data.jumlah_donatur;
-        statsNumbers[2].textContent = data.penerima_bantuan;
-    }
-}
-
-
-// Fungsi untuk memperbarui chart distribusi kategori
-function updateDistribusiChart(kategoriData) {
-    // Perbarui persentase dalam legend
-    const legendItems = document.querySelectorAll('.category-item');
-    
-    if (kategoriData && kategoriData.length > 0) {
-        // Urutkan data kategori berdasarkan persentase tertinggi
-        kategoriData.sort((a, b) => b.persen - a.persen);
-        
-        // Batasi hanya 3 kategori teratas untuk chart
-        const topKategori = kategoriData.slice(0, 3);
-        
-        // Perbarui legend dan nilai persentase
-        topKategori.forEach((kategori, index) => {
-            if (index < legendItems.length) {
-                legendItems[index].querySelector('.category-name').textContent = kategori.kategori;
-                legendItems[index].querySelector('.category-percent').textContent = kategori.persen.toFixed(1) + '%';
-            }
-        });
-        
-        updatePieChartSegments(topKategori);
-    }
-}
-
-function updatePieChartSegments(kategoriData) {
-    
-    const chartContainer = document.querySelector('.chart-container');
-    
-    const categoryColors = ['#ff9a76', '#78c6a3', '#93b5e1'];
-    
-    kategoriData.forEach((kategori, index) => {
-        if (index < 3) {
-            const colorBlock = document.querySelectorAll('.category-color')[index];
-            if (colorBlock) {
-                colorBlock.style.backgroundColor = categoryColors[index];
-            }
-        }
     });
+});
+
+// Add this function to show success notification
+function showDonationSuccess(amount) {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = 'donation-success';
+    
+    // Format the amount
+    let formattedAmount = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(amount);
+    
+    // Set content
+    notification.innerHTML = `
+        <i class="bi bi-check-circle-fill"></i>
+        Donasi ${formattedAmount} berhasil diterima. Terima kasih!
+    `;
+    
+    // Add to document
+    document.body.appendChild(notification);
+    
+    // Remove after animation completes
+    setTimeout(() => {
+        notification.remove();
+    }, 4000);
 }
+
+// Update the fetch .then handler in the quick_donate_js file to call this function:
+/*
+.then(data => {
+    // Show success message with the donation amount
+    showDonationSuccess(amount);
+    
+    // Reset form
+    customAmountInput.value = '';
+    campaignSelect.selectedIndex = 0;
+    amountButtons.forEach(btn => btn.classList.remove('active'));
+    
+    // Reload the page after a short delay to refresh the latest donors list
+    setTimeout(() => {
+        window.location.reload();
+    }, 2000);
+})
+*/
+
+// Add this script to the page containing the quick-donate-card
+document.addEventListener('DOMContentLoaded', function() {
+    const quickDonateForm = document.querySelector('.quick-donate-card');
+    const customAmountInput = document.getElementById('customAmount');
+    const amountButtons = document.querySelectorAll('.donate-amount-btn');
+    const campaignSelect = document.getElementById('campaignSelect');
+    const donateButton = document.querySelector('.quick-donate-card .btn-light');
+    
+    // Set amount when clicking on preset buttons
+    amountButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            amountButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Set the amount value in the input field
+            const amount = this.textContent.replace(/\D/g, ''); // Remove non-digit characters
+            customAmountInput.value = amount;
+        });
+    });
+    
+    // Handle donation submission
+    donateButton.addEventListener('click', function() {
+        const amount = parseFloat(customAmountInput.value);
+        const campaignId = parseInt(campaignSelect.value);
+        
+        // Validate amount
+        if (!amount || amount <= 0) {
+            alert('Mohon masukkan jumlah donasi yang valid');
+            return;
+        }
+        
+        // Create donation data
+        const donationData = {
+            jumlah: amount,
+            kampanye_id: isNaN(campaignId) ? 0 : campaignId
+        };
+        
+        // Show loading state
+        donateButton.disabled = true;
+        donateButton.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Memproses...';
+        
+        // Send request to server
+        fetch('/api/quick-donate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(donationData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Show success message with the donation amount
+            showDonationSuccess(amount);
+            
+            // Reset form
+            customAmountInput.value = '';
+            campaignSelect.selectedIndex = 0;
+            amountButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Reload the page after a short delay to refresh the latest donors list
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+        })
+        .catch(error => {
+            console.error('Error submitting donation:', error);
+            alert('Maaf, terjadi kesalahan saat memproses donasi. Silakan coba lagi.');
+        })
+        .finally(() => {
+            // Reset button state
+            donateButton.disabled = false;
+            donateButton.innerHTML = '<i class="bi bi-heart-fill me-2"></i>Donasi Sekarang';
+        });
+    });
+});
+
+// Save this as static/js/quick-donate.js
+
+// Function to show success notification
+function showDonationSuccess(amount) {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = 'donation-success';
+    
+    // Format the amount
+    let formattedAmount = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(amount);
+    
+    // Set content
+    notification.innerHTML = `
+        <i class="bi bi-check-circle-fill"></i>
+        Donasi ${formattedAmount} berhasil diterima. Terima kasih!
+    `;
+    
+    // Add to document
+    document.body.appendChild(notification);
+    
+    // Remove after animation completes
+    setTimeout(() => {
+        notification.remove();
+    }, 4000);
+}
+
+// Quick donate form handling
+document.addEventListener('DOMContentLoaded', function() {
+    const quickDonateForm = document.querySelector('.quick-donate-card');
+    
+    // Only initialize if the form exists on this page
+    if (!quickDonateForm) return;
+    
+    const customAmountInput = document.getElementById('customAmount');
+    const amountButtons = document.querySelectorAll('.donate-amount-btn');
+    const campaignSelect = document.getElementById('campaignSelect');
+    const donateButton = document.querySelector('.quick-donate-card .btn-light');
+    
+    // Set amount when clicking on preset buttons
+    amountButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            amountButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Set the amount value in the input field
+            const amount = this.textContent.replace(/\D/g, ''); // Remove non-digit characters
+            customAmountInput.value = amount;
+        });
+    });
+    
+    // Handle donation submission
+    donateButton.addEventListener('click', function() {
+        const amount = parseFloat(customAmountInput.value);
+        const campaignId = parseInt(campaignSelect.value);
+        
+        // Validate amount
+        if (!amount || amount <= 0) {
+            alert('Mohon masukkan jumlah donasi yang valid');
+            return;
+        }
+        
+        // Create donation data
+        const donationData = {
+            jumlah: amount,
+            kampanye_id: isNaN(campaignId) ? 0 : campaignId
+        };
+        
+        // Show loading state
+        donateButton.disabled = true;
+        donateButton.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Memproses...';
+        
+        // Send request to server
+        fetch('/api/quick-donate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(donationData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Show success message with the donation amount
+            showDonationSuccess(amount);
+            
+            // Reset form
+            customAmountInput.value = '';
+            campaignSelect.selectedIndex = 0;
+            amountButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Reload the page after a short delay to refresh the latest donors list
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000);
+        })
+        .catch(error => {
+            console.error('Error submitting donation:', error);
+            alert('Maaf, terjadi kesalahan saat memproses donasi. Silakan coba lagi.');
+        })
+        .finally(() => {
+            // Reset button state
+            donateButton.disabled = false;
+            donateButton.innerHTML = '<i class="bi bi-heart-fill me-2"></i>Donasi Sekarang';
+        });
+    });
+});
     </script>
 </body>
 </html>

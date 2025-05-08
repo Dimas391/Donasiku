@@ -16,6 +16,9 @@ WORKDIR /root/
 COPY --from=builder /app/main .
 COPY --from=builder /app/static ./static
 COPY --from=builder /app/*.html ./   
+# COPY ./static/image /app/image
+# COPY ./static/image /app/static/image
+
 
 EXPOSE 8080
 

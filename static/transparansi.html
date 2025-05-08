@@ -23,29 +23,77 @@
         .navbar {
             background-color: var(--primary-color) !important;
             padding: 12px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         .navbar-brand {
-            font-weight: bold;
+            font-weight: 700;
             font-size: 24px;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            position: relative;
+            padding: 8px 16px !important;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 16px;
+            right: 16px;
+            height: 3px;
+            background-color: white;
+            border-radius: 3px 3px 0 0;
         }
         
         .header-banner {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), #8BC34A);
             color: white;
-            padding: 30px 0;
-            margin-bottom: 30px;
+            padding: 60px 0;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: url('/api/placeholder/1600/800') center/cover;
+            opacity: 0.1;
         }
         
         .header-banner h1 {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 5px;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         
         .header-banner p {
-            font-size: 16px;
-            margin-bottom: 0;
+            font-size: 18px;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+        
+        .header-banner .btn {
+            padding: 12px 28px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .header-banner .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
         
         .content-card {
@@ -251,19 +299,101 @@
                 left: 0%;
             }
         }
+
+        .footer {
+            background: linear-gradient(to right, #2c3e50, #4a6572);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer h5 {
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer h5::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-icon:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-link {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .footer-link:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .floating-donate-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--danger-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .floating-donate-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+        }
+        
+        .floating-donate-btn i {
+            font-size: 24px;
+        }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="index.html">Platform Donasi</a>
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-heart-fill me-2"></i>
+                Platform Donasi
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">Beranda</a>
+                        <a class="nav-link " href="index.html">Beranda</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="donasi.html">Donasi Sekarang</a>
@@ -560,35 +690,62 @@
         </div>
     </div>
     
-    <footer class="bg-dark text-white py-4">
+    <footer class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <h5>Platform Donasi Komunitas</h5>
-                    <p>Memberikan dampak positif untuk masyarakat melalui donasi yang terpercaya dan transparan.</p>
-                </div>
-                <div class="col-md-3">
-                    <h5>Tautan</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="index.html" class="text-white">Beranda</a></li>
-                        <li><a href="donasi.html" class="text-white">Donasi</a></li>
-                        <li><a href="transparansi.html" class="text-white">Transparansi</a></li>
-                        <li><a href="kontak.html" class="text-white">Kontak</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h5>Ikuti Kami</h5>
-                    <div class="d-flex">
-                        <a href="#" class="text-white me-3"><i class="bi bi-facebook fs-4"></i></a>
-                        <a href="#" class="text-white me-3"><i class="bi bi-instagram fs-4"></i></a>
-                        <a href="#" class="text-white me-3"><i class="bi bi-twitter fs-4"></i></a>
-                        <a href="#" class="text-white"><i class="bi bi-youtube fs-4"></i></a>
+                <div class="col-lg-4 mb-4">
+                    <h5>Tentang Platform Donasi</h5>
+                    <p class="text-white-50">Platform Donasi adalah platform penggalangan dana online yang berfokus pada transparansi dan efektivitas penyaluran bantuan untuk berbagai program sosial dan kemanusiaan di Indonesia.</p>
+                    <div class="d-flex gap-2 mt-3">
+                        <a href="#" class="footer-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="footer-icon"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="footer-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="footer-icon"><i class="bi bi-youtube"></i></a>
                     </div>
                 </div>
+                
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h5>Navigasi</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="footer-link">Beranda</a></li>
+                        <li><a href="donasi.html" class="footer-link">Donasi Sekarang</a></li>
+                        <li><a href="kampanye.html" class="footer-link">Kampanye</a></li>
+                        <li><a href="tentang.html" class="footer-link">Tentang Kami</a></li>
+                        <li><a href="kontak.html" class="footer-link">Kontak</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h5>Program</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="footer-link">Bantuan Bencana</a></li>
+                        <li><a href="#" class="footer-link">Pendidikan</a></li>
+                        <li><a href="#" class="footer-link">Kesehatan</a></li>
+                        <li><a href="#" class="footer-link">Pemberdayaan Ekonomi</a></li>
+                        <li><a href="#" class="footer-link">Keagamaan</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h5>Hubungi Kami</h5>
+                    <ul class="list-unstyled text-white-50">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> Jl. Banda Aceh-Medan Km. 280,3, Buketrata, Mesjid Punteut, Blang Mangat, Kota Lhokseumawe, 24301, Aceh, Indonesia</li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i> +6283848581998</li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i> info@kelompok1.id</li>
+                    </ul>
+                </div>
             </div>
-            <hr>
-            <div class="text-center">
-                <p class="mb-0">&copy; 2025Kelompok 1. Hak Cipta Dilindungi.</p>
+            
+            <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
+            
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="text-white-50 mb-0">&copy; 2025 Platform Donasi Kelompok 1. Hak Cipta Dilindungi.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="kebijakan-privasi.html" class="footer-link me-3">Kebijakan Privasi</a>
+                    <a href="syarat-ketentuan.html" class="footer-link">Syarat & Ketentuan</a>
+                </div>
             </div>
         </div>
     </footer>
