@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"time"
 	"math"
-
+	"strings"
 	"github.com/gorilla/mux"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -58,6 +58,16 @@ type PenerimaBantuan struct {
 	UpdatedAt     time.Time `json:"updated_at"`
 }
 
+type AlokasiDana struct {
+    ID             uint    `json:"id"`
+    Title          string  `json:"title"`
+    Category       string  `json:"category"`
+    TargetAmount   float64 `json:"target_amount"`
+    TotalDonations float64 `json:"totaldonations"`
+   	UpdatedAt      time.Time  `json:"UpdatedAt"` // or time.Time depending on your format
+}
+
+
 type TemplateData struct {
 	TotalDonatur      int64
 	TotalDonasi       string
@@ -67,6 +77,8 @@ type TemplateData struct {
 	UrgentCampaigns   []CampaignDisplayData
 	NonUrgentCampaigns []CampaignDisplayData 
 }
+
+
 
 type DonateurData struct {
 	ID              uint
@@ -81,7 +93,10 @@ type DonateurData struct {
 	Avatar          string
 }
 
-
+var funcMap = template.FuncMap{
+    "formatRupiah1": formatRupiah1,
+	 "formatWaktu": formatWaktu,
+}
 
 var db *gorm.DB
 
@@ -120,8 +135,8 @@ func main() {
     r.HandleFunc("/kampanye-mendesak", getUrgentCampaignsPage).Methods("GET")
     r.HandleFunc("/detail_donasi/{id}", getCampaignDetailPage).Methods("GET")
 	r.HandleFunc("/api/quick-donate", quickDonate).Methods("POST")
-
-    
+	r.HandleFunc("/transparansi", getTransparansiPage).Methods("GET")
+    r.HandleFunc("/api/transparansi/ringkasan", getTransparansiRingkasan).Methods("GET")
 	
     // Add a new route to display all campaigns with filters
     r.HandleFunc("/semua-kampanye", func(w http.ResponseWriter, r *http.Request) {
@@ -180,6 +195,52 @@ func getCampaignByID(id uint) (Campaign, error) {
     var campaign Campaign
     result := db.First(&campaign, id)
     return campaign, result.Error
+}
+
+func getTransparansiRingkasan(w http.ResponseWriter, r *http.Request) {
+	type Ringkasan struct {
+		TotalDonasi      float64 `json:"total_donasi"`
+		TotalTersalurkan float64 `json:"total_tersalurkan"`
+		Saldo            float64 `json:"saldo"`
+		JumlahDonatur    int64   `json:"jumlah_donatur"`
+	}
+
+	var totalDonasi float64
+	var jumlahDonatur int64
+	var totalTersalurkan float64
+
+	// 1. Ambil total donasi masuk (hanya yang status_pembayaran = "selesai")
+	if err := db.Model(&Donasi{}).
+		Where("status_pembayaran = ?", "selesai").
+		Select("COALESCE(SUM(jumlah), 0)").Scan(&totalDonasi).Error; err != nil {
+		http.Error(w, "Gagal mengambil total donasi", http.StatusInternalServerError)
+		return
+	}
+
+	// 2. Hitung donatur unik berdasarkan email
+	if err := db.Model(&Donasi{}).
+		Where("status_pembayaran = ?", "selesai").
+		Select("COUNT(DISTINCT email)").Scan(&jumlahDonatur).Error; err != nil {
+		http.Error(w, "Gagal menghitung donatur", http.StatusInternalServerError)
+		return
+	}
+
+	// 3. Ambil total dana yang tersalurkan
+	if err := db.Model(&PenerimaBantuan{}).
+		Select("COALESCE(SUM(jumlah_dana), 0)").Scan(&totalTersalurkan).Error; err != nil {
+		http.Error(w, "Gagal mengambil total tersalurkan", http.StatusInternalServerError)
+		return
+	}
+
+	ringkasan := Ringkasan{
+		TotalDonasi:      totalDonasi,
+		TotalTersalurkan: totalTersalurkan,
+		Saldo:            totalDonasi - totalTersalurkan,
+		JumlahDonatur:    jumlahDonatur,
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(ringkasan)
 }
 
 
@@ -312,6 +373,102 @@ func getLatestDonaturPage(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Gagal merender template: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
+}
+
+// getAlokasiDana fetches allocation data from the database
+func getAlokasiDana() ([]AlokasiDana, error) {
+    var alokasiDana []AlokasiDana
+
+    // Use the provided SQL query to fetch campaign data and total donations
+    err := db.Raw(`
+       SELECT 
+    campaigns.id, 
+    campaigns.title, 
+    campaigns.category, 
+    campaigns.target_amount, 
+    campaigns.updated_at,
+    COALESCE(SUM(donasis.jumlah), 0) AS total_donations
+	FROM 
+		campaigns
+	LEFT JOIN 
+		donasis ON donasis.campaign_id = campaigns.id
+	GROUP BY 
+		campaigns.id, 
+		campaigns.title, 
+		campaigns.category, 
+		campaigns.target_amount,
+		campaigns.updated_at;
+
+    `).Scan(&alokasiDana).Error
+
+    if err != nil {
+        return nil, err
+    }
+
+    return alokasiDana, nil
+}
+
+
+
+// getTransparansiPage renders the page with allocation data
+func formatRupiah1(amount float64) string {
+    // Konversi float ke string dengan presisi 0 (tanpa desimal)
+    amountStr := strconv.FormatFloat(amount, 'f', 0, 64)
+    
+    // Jika nilai kosong, kembalikan "Rp 0"
+    if amountStr == "" || amountStr == "0" {
+        return "Rp 0"
+    }
+    
+    // Panjang string
+    length := len(amountStr)
+    
+    // Mulai menyisipkan titik sebagai pemisah ribuan dari belakang
+    var result strings.Builder
+    for i := 0; i < length; i++ {
+        // Tambahkan titik setiap 3 digit dari belakang kecuali di awal angka
+        if i > 0 && (length-i)%3 == 0 {
+            result.WriteString(".")
+        }
+        result.WriteByte(amountStr[i])
+    }
+    
+    return fmt.Sprintf("Rp %s", result.String())
+}
+
+func formatWaktu(t time.Time) string {
+    // Format waktu dalam format Indonesia: DD-MM-YYYY HH:MM
+    return t.Format("02-01-2006 15:04")
+}
+
+// Perbarui fungsi getTransparansiPage
+func getTransparansiPage(w http.ResponseWriter, r *http.Request) {
+    // Fetch allocation data
+    alokasiDana, err := getAlokasiDana()
+    if err != nil {
+        http.Error(w, "Gagal mengambil data alokasi dana: "+err.Error(), http.StatusInternalServerError)
+        return
+    }
+
+    // Pass data to template
+    data := struct {
+        AlokasiDana []AlokasiDana
+    }{
+        AlokasiDana: alokasiDana,
+    }
+
+    // Render the template dengan funcMap
+    tmpl, err := template.New("transparansi.html").Funcs(funcMap).ParseFiles("static/transparansi.html")
+    if err != nil {
+        http.Error(w, "Gagal memuat template: "+err.Error(), http.StatusInternalServerError)
+        return
+    }
+
+    err = tmpl.Execute(w, data)
+    if err != nil {
+        http.Error(w, "Gagal merender template: "+err.Error(), http.StatusInternalServerError)
+        return
+    }
 }
 
 func getAllDonaturPage(w http.ResponseWriter, r *http.Request) {
@@ -496,15 +653,15 @@ func getAllDonaturPage(w http.ResponseWriter, r *http.Request) {
     }
 
 
-	err = tmpl.Execute(w, map[string]interface{}{
-		"Data":         data,
-		"CurrentPage":  page,
-		"TotalPages":   int(math.Ceil(float64(totalDonatur) / float64(pageSize))),
-		"HasNextPage":  (page * pageSize) < int(totalDonatur),
-		"HasPrevPage":  page > 1,
-		"NextPage":     page + 1,
-		"PrevPage":     page - 1,
-	})
+	// err = tmpl.Execute(w, map[string]interface{}{
+	// 	"Data":         data,
+	// 	"CurrentPage":  page,
+	// 	"TotalPages":   int(math.Ceil(float64(totalDonatur) / float64(pageSize))),
+	// 	"HasNextPage":  (page * pageSize) < int(totalDonatur),
+	// 	"HasPrevPage":  page > 1,
+	// 	"NextPage":     page + 1,
+	// 	"PrevPage":     page - 1,
+	// })
 	
 	if err != nil {
 		http.Error(w, "Gagal merender template: "+err.Error(), http.StatusInternalServerError)

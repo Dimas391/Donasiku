@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Donasi Komunitas - Profil Pembuat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #5c9f24;
+            --primary-light: #e5f2dc;
+            --secondary-color: #f8f7f2;
+            --text-color: #333;
+            --accent-color: #e78e6d;
+            --danger-color: #dc3545;
+            --donor-highlight: #8BC34A;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
+        
+        .navbar {
+            background-color: var(--primary-color) !important;
+            padding: 12px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 24px;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            position: relative;
+            padding: 8px 16px !important;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 16px;
+            right: 16px;
+            height: 3px;
+            background-color: white;
+            border-radius: 3px 3px 0 0;
+        }
+        
+        .header-banner {
+            background: linear-gradient(135deg, var(--primary-color), #8BC34A);
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: url('/api/placeholder/1600/800') center/cover;
+            opacity: 0.1;
+        }
+        
+        .header-banner h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .header-banner p {
+            font-size: 18px;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+        
+        .content-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profile-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .profile-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+        
+        .profile-img-container {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 25px;
+            border: 5px solid var(--primary-light);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .profile-card:hover .profile-img {
+            transform: scale(1.05);
+        }
+        
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        
+        .profile-role {
+            font-size: 16px;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .profile-desc {
+            color: #666;
+            margin-bottom: 25px;
+            text-align: center;
+            flex-grow: 1;
+        }
+        
+        .profile-social {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 5px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .skill-container {
+            margin-top: 20px;
+        }
+        
+        .skill-tag {
+            display: inline-block;
+            padding: 6px 12px;
+            margin: 5px;
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-tag:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .education-item, .experience-item {
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .education-item:before, .experience-item:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+        }
+        
+        .education-item:after, .experience-item:after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 25px;
+            width: 1px;
+            height: calc(100% - 8px);
+            background-color: #ddd;
+        }
+        
+        .education-item:last-child:after, .experience-item:last-child:after {
+            display: none;
+        }
+        
+        .education-year, .experience-year {
+            font-size: 14px;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .education-degree, .experience-position {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+        
+        .education-school, .experience-company {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .project-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .project-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .project-desc {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .tech-tag {
+            padding: 4px 10px;
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .quote-container {
+            background-color: var(--primary-light);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .quote-text {
+            font-size: 18px;
+            font-style: italic;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .quote-text:before {
+            content: '"';
+            font-size: 60px;
+            position: absolute;
+            left: -20px;
+            top: -20px;
+            color: var(--primary-color);
+            opacity: 0.2;
+        }
+        
+        .quote-author {
+            font-weight: 700;
+            color: var(--primary-color);
+            text-align: right;
+        }
+
+        .footer {
+            background: linear-gradient(to right, #2c3e50, #4a6572);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+        
+        .footer h5 {
+            font-weight: 600;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer h5::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-icon:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-link {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .footer-link:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .profile-card {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        .profile-card:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .profile-img-container {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .profile-name {
+                font-size: 22px;
+            }
+            
+            .quote-text {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-heart-fill me-2"></i>
+                Platform Donasi
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="donasi.html">Donasi Sekarang</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tentang.html">Tentang Donasi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="\transparansi">Transparansi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="profile.html">Profil Pembuat</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="header-banner">
+        <div class="container text-center">
+            <h1>Profil Pembuat</h1>
+            <p>Mengenal lebih dekat tim pengembang di balik Platform Donasi Komunitas</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-8 mx-auto">
+                <div class="content-card text-center">
+                    <h2 class="mb-4">Tim Pengembang</h2>
+                    <p class="lead">Platform Donasi Komunitas dikembangkan oleh dua mahasiswa yang berkomitmen untuk menciptakan solusi digital dengan dampak sosial positif. Melalui platform ini, kami berupaya menghubungkan donatur dengan penerima manfaat secara efektif dan transparan.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Profil Pembuat 1 -->
+            <div class="col-lg-6 mb-4">
+                <div class="profile-card">
+                    <div class="profile-img-container">
+                        <img src="./image/Dimas.JPG" alt="Dimas Kurniawan" class="profile-img">
+                    </div>
+                    <h3 class="profile-name">Dimas Kurniawan</h3>
+                    <div class="profile-role">Full-stack Developer</div>
+                    <p class="profile-desc">Saya adalah mahasiswa aktif semester 6 di Politeknik Negeri Lhokseumawe, Jurusan Teknologi Informasi dan Komputer, Program Studi Teknik Informatika. Saya memiliki keterampilan dasar dalam pemrograman, khususnya dalam pengembangan web dan desain. Saya juga berpengalaman melakukan praktik kerja industri di Badan Perencanaan, Penelitian, dan Pengembangan Daerah Kota Pematangsiantar selama 2 bulan. Selain itu, saya memiliki pengalaman dalam membuat dan mengelola server berbasis Linux maupun Windows.</p>
+                    
+                    <div class="skill-container text-center">
+                        <span class="skill-tag">HTML/CSS</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">PHP</span>
+                        <span class="skill-tag">Laravel</span>
+                        <span class="skill-tag">Tallwind</span>
+                        <span class="skill-tag">MySQL</span>
+                    </div>
+                    
+                    <div class="profile-social mt-4">
+                        <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-github"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-envelope"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Profil Pembuat 2 -->
+            <div class="col-lg-6 mb-4">
+                <div class="profile-card">
+                    <div class="profile-img-container">
+                        <img src="./image/sulthan.jpg" alt="Sulthan" class="profile-img">
+                    </div>
+                    <h3 class="profile-name">Sulthan Juanda Al-Muttaqin</h3>
+                    <div class="profile-role">UI/UX Designer & Frontend Developer</div>
+                    <p class="profile-desc">Mahasiswa semester 6 di Politeknik Negeri Lhokseumawe, Program Studi Teknik Informatika, dengan latar belakang di bidang Teknologi Informasi dan Komputer. Memiliki keterampilan dalam pengoperasian komputer, algoritma dan struktur data, desain grafis, serta manajemen database. Terbiasa bekerja dalam tim, dengan kemampuan komunikasi yang baik, dan siap berkontribusi serta mengembangkan diri dalam lingkungan kerja yang dinamis dan penuh tantangan..</p>
+                    
+                    <div class="skill-container text-center">
+                        <span class="skill-tag">UI/UX Design</span>
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">HTML/CSS</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Bootstrap</span>
+                        <span class="skill-tag">Adobe Creative Suite</span>
+                    </div>
+                    
+                   <div class="profile-social mt-4">
+                        <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-github"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-envelope"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="content-card">
+                    <div class="section-title">Riwayat Pendidikan & Pengalaman</div>
+                    
+                    <div class="row">
+                        <div class="col-lg-6 mb-4">
+                            <h4 class="mb-3">Dimas Kurniawan</h4>
+                            
+                            <div class="education-section mb-4">
+                                <h5 class="mb-3">Pendidikan</h5>
+                                
+                                <div class="education-item">
+                                    <div class="education-year">2022 - Sekarang</div>
+                                    <div class="education-degree">D4 Teknik Informatika</div>
+                                    <div class="education-school">Politeknik Negeri Lhokseumawe, Lhokseumawe</div>
+                                </div>
+                                
+                                <div class="education-item">
+                                    <div class="education-year">2019 - 2022</div>
+                                    <div class="education-degree">SMKN 3 Pematangsiantar</div>
+                                    <div class="education-school">Jurusan RPL</div>
+                                </div>
+                            </div>
+                            
+                            <div class="experience-section">
+                                <h5 class="mb-3">Pengalaman</h5>
+                                
+                                <div class="experience-item">
+                                    <div class="experience-year">November - Desember 2021</div>
+                                    <div class="experience-position">Magang Data Entry</div>
+                                    <div class="experience-company">BAPPEDA </div>
+                                    <p>Melakukan perhitungan dana Rencana Kerja Pemerintah Daerah (RKPD) menggunakan Microsoft Excel.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6">
+                            <h4 class="mb-3">Sulthan Juanda Al Al-Muttaqin</h4>
+                            
+                            <div class="education-section mb-4">
+                                <h5 class="mb-3">Pendidikan</h5>
+                                
+                                <div class="education-item">
+                                    <div class="education-year">2022 - Sekarang</div>
+                                    <div class="education-degree">D4 Teknik Informatika</div>
+                                    <div class="education-school">Politeknik Negeri Lhokseumawe</div>
+                                </div>
+                                
+                                <div class="education-item">
+                                    <div class="education-year">2019 - 2022</div>
+                                    <div class="education-degree">SMAN 2 Lhokseumawe</div>
+                                    <div class="education-school">Jurusan IPA</div>
+                                </div>
+                            </div>
+                            
+                            <div class="experience-section">
+                                <h5 class="mb-3">Pengalaman</h5>
+                                
+                                <div class="experience-item">
+                                    <div class="experience-year">2023 - 2024</div>
+                                    <div class="experience-position">Peserta Coding Camp DBS Foundation</div>
+                                    <div class="experience-company">DBS Foundation</div>
+                                    <p>Mengembangkan proyek akhir dengan dataset nyata menggunakan Python, scikit-learn, dan TensorFlow..</p>
+                                </div>
+                                
+                                <!-- <div class="experience-item">
+                                    <div class="experience-year">2023</div>
+                                    <div class="experience-position">Magang UI Designer</div>
+                                    <div class="experience-company">Startup Kreatif Aceh</div>
+                                    <p>Merancang antarmuka untuk aplikasi e-commerce lokal.</p>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="content-card">
+                    <div class="section-title">Proyek Sebelumnya</div>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="project-card">
+                                <div class="project-title">Aplikasi Manajemen Restoran</div>
+                                <div class="project-desc">Sebuah Website Restoran yang dapat memesan makanan dan booking tempat dari rumah.</div>
+                                <div class="project-tech">
+                                    <span class="tech-tag">PHP</span>
+                                    <span class="tech-tag">Tallwind CSS</span>
+                                    <span class="tech-tag">Flutter</span>
+                                    <span class="tech-tag">MySQL</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-4">
+                            <div class="project-card">
+                                <div class="project-title">Aplikasi Pemensanan Tiket Bioskop</div>
+                                <div class="project-desc">Sebuah aplikasi yang dapat memesan tiket bioskop secara Online.</div>
+                                <div class="project-tech">
+                                    <span class="tech-tag">Flutter</span>
+                                    <span class="tech-tag">Firebase</span>
+                                    <!-- <span class="tech-tag">G</span> -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-4">
+                            <div class="project-card">
+                                <div class="project-title">Web Pulsa Paket All Operator</div>
+                                <div class="project-desc">Website Penjualan pulsa dan kuota internet secara online.</div>
+                                <div class="project-tech">
+                                    <span class="tech-tag">PHP</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">MySQL</span>
+                                    <span class="tech-tag">Bootstrap</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="quote-container">
+            <div class="quote-text">
+                "Teknologi seharusnya tidak hanya membuat hidup kita lebih mudah, tetapi juga harus membantu kita menciptakan masyarakat yang lebih adil dan inklusif. Melalui Platform Donasi Komunitas, kami berupaya mewujudkan visi tersebut dengan menghubungkan kebaikan dari donatur ke mereka yang membutuhkan."
+            </div>
+            <div class="quote-author">Dimas & Sulthan, </div>
+            <div class="quote-author">Founder Platform Donasi Komunitas</div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="content-card text-center">
+                    <h3 class="mb-4">Bergabung Menjadi Bagian dari Perubahan</h3>
+                    <p class="mb-4">Kami percaya bahwa setiap bantuan kecil dapat membuat perbedaan besar. Mari bersama-sama menciptakan dampak positif bagi masyarakat!</p>
+                    <a href="donasi.html" class="btn btn-primary btn-lg" style="background-color: #5c9f24;">Donasi Sekarang</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5>Tentang Platform Donasi</h5>
+                    <p class="text-white-50">Platform Donasi adalah platform penggalangan dana online yang berfokus pada transparansi dan efektivitas penyaluran bantuan untuk berbagai program sosial dan kemanusiaan di Indonesia.</p>
+                    <div class="d-flex gap-2 mt-3">
+                        <a href="#" class="footer-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="footer-icon"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="footer-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="footer-icon"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h5>Navigasi</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="footer-link">Beranda</a></li>
+                        <li><a href="donasi.html" class="footer-link">Donasi Sekarang</a></li>
+                        <li><a href="kampanye.html" class="footer-link">Kampanye</a></li>
+                        <li><a href="tentang.html" class="footer-link">Tentang Kami</a></li>
+                        <li><a href="kontak.html" class="footer-link">Kontak</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h5>Program</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="footer-link">Bantuan Bencana</a></li>
+                        <li><a href="#" class="footer-link">Pendidikan</a></li>
+                        <li><a href="#" class="footer-link">Kesehatan</a></li>
+                        <li><a href="#" class="footer-link">Pemberdayaan Ekonomi</a></li>
+                        <li><a href="#" class="footer-link">Keagamaan</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 mb-4">
+                    <h5>Hubungi Kami</h5>
+                    <ul class="list-unstyled text-white-50">
+                        <li class="mb-2"><i class="bi bi-geo-alt me-2"></i> Jl. Banda Aceh-Medan Km. 280,3, Buketrata, Mesjid Punteut, Blang Mangat, Kota Lhokseumawe, 24301, Aceh, Indonesia</li>
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i> +6283848581998</li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i> info@kelompok1.id</li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+    </footer>
+    </body>
+    </html>

@@ -23,6 +23,8 @@ type Campaign struct {
 	CreatedAt     time.Time `json:"created_at"`
 	UpdatedAt     time.Time `json:"updated_at"`
 	Content       string    `json:"content"`
+	TotalDonations float64 `json:"total_donations"` // Total donations for this campaign
+
 }
 
 // CampaignDisplayData is used for template rendering
@@ -111,6 +113,51 @@ func prepareCampaignDisplayData(campaign Campaign) CampaignDisplayData {
 		CountdownTimer:   countdownTimer,
 	}
 }
+
+// Function to get campaigns with total donations
+// func getAlokasiDana() ([]Campaign, error) {
+//     var campaigns []Campaign
+
+//     // Execute the SQL query
+//     query := `
+//     SELECT 
+//         campaigns.id, 
+//         campaigns.title, 
+//         campaigns.category, 
+//         campaigns.target_amount, 
+//         COALESCE(SUM(donasis.jumlah), 0) AS total_donations
+//     FROM 
+//         campaigns
+//     LEFT JOIN 
+//         donasis ON donasis.campaign_id = campaigns.id
+//     GROUP BY 
+//         campaigns.id, campaigns.title, campaigns.category, campaigns.target_amount;
+//     `
+
+//     // Use the database connection to query the data
+//     rows, err := db.Raw(query).Rows()  // Assuming db is your *gorm.DB instance
+//     if err != nil {
+//         return nil, err
+//     }
+//     defer rows.Close()
+
+//     // Loop through the rows and populate the campaigns slice
+//     for rows.Next() {
+//         var campaign Campaign
+//         // Scan the result into the Campaign struct
+//         if err := rows.Scan(&campaign.ID, &campaign.Title, &campaign.Category, &campaign.TargetAmount, &campaign.TotalDonations); err != nil {
+//             return nil, err
+//         }
+//         campaigns = append(campaigns, campaign)
+//     }
+
+//     // Check for errors after iterating through the rows
+//     if err := rows.Err(); err != nil {
+//         return nil, err
+//     }
+
+//     return campaigns, nil
+// }
 
 // getUrgentCampaignsPage renders the page with urgent campaigns
 func getUrgentCampaignsPage(w http.ResponseWriter, r *http.Request) {

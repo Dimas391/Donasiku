@@ -381,7 +381,7 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="index.html">
                 <i class="bi bi-heart-fill me-2"></i>
@@ -393,7 +393,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link " href="index.html">Beranda</a>
+                        <a class="nav-link" href="index.html">Beranda</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="donasi.html">Donasi Sekarang</a>
@@ -402,7 +402,10 @@
                         <a class="nav-link" href="tentang.html">Tentang Donasi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="transparansi.html">Transparansi</a>
+                        <a class="nav-link active" href="\transparansi">Transparansi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Profil Pembuat</a>
                     </li>
                 </ul>
             </div>
@@ -425,25 +428,25 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="stats-box">
-                                <div class="number">Rp 9.800.000</div>
+                                <div class="number" id="totalDonasi">Memuat...</div>
                                 <div class="label">Total Donasi Terkumpul</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="stats-box">
-                                <div class="number">Rp 7.250.000</div>
+                                <div class="number" id="totalTersalurkan">Memuat...</div>
                                 <div class="label">Total Tersalurkan</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="stats-box">
-                                <div class="number">Rp 2.550.000</div>
+                                <div class="number" id="saldo">Memuat...</div>
                                 <div class="label">Saldo Saat Ini</div>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="stats-box">
-                                <div class="number">57</div>
+                                <div class="number" id="jumlahDonatur">Memuat...</div>
                                 <div class="label">Jumlah Donatur</div>
                             </div>
                         </div>
@@ -452,160 +455,44 @@
             </div>
         </div>
         
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="content-card">
-                    <div class="section-title">Distribusi Donasi per Kategori</div>
-                    
-                    <div class="chart-container" style="max-width: 400px; margin: auto;">
-                        <svg viewBox="0 0 400 400" width="100%" height="auto">
-                            <!-- Bayangan -->
-                            <defs>
-                                <filter id="shadow" x="-20%" y="-20%" width="150%" height="150%">
-                                    <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.2"/>
-                                </filter>
-                            </defs>
-                    
-                            <!-- Bencana Alam (31.2%) -->
-                            <path d="M200,200 L200,75 A125,125 0 0,1 307.1,275 Z"
-                                  fill="#ff9a76" stroke="#ffffff" stroke-width="2" filter="url(#shadow)" />
-                    
-                            <!-- Pendidikan (40.3%) -->
-                            <path d="M200,200 L307.1,275 A125,125 0 0,1 75,200 Z"
-                                  fill="#78c6a3" stroke="#ffffff" stroke-width="2" filter="url(#shadow)" />
-                    
-                            <!-- Kesehatan (28.5%) -->
-                            <path d="M200,200 L75,200 A125,125 0 0,1 200,75 Z"
-                                  fill="#93b5e1" stroke="#ffffff" stroke-width="2" filter="url(#shadow)" />
-                    
-                            <!-- Lingkaran tengah -->
-                            <circle cx="200" cy="200" r="60" fill="white" stroke="#eee" stroke-width="2" />
-                    
-                            <!-- Label tahun -->
-                            <text x="200" y="205" text-anchor="middle"
-                                  font-size="20" font-weight="bold" fill="#333" font-family="Arial, sans-serif">
-                                2025
-                            </text>
-                        </svg>
-                    </div>
-                    
-                    
-                    <div class="progress-info">
-                        <div class="progress-title">
-                            <span><i class="bi bi-square-fill" style="color:#ff9a76"></i> Bencana Alam</span>
-                            <span>31.2%</span>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-bencana" role="progressbar" style="width: 31.2%" aria-valuenow="31.2" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        
-                        <div class="progress-title">
-                            <span><i class="bi bi-square-fill" style="color:#78c6a3"></i> Pendidikan</span>
-                            <span>40.3%</span>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-pendidikan" role="progressbar" style="width: 40.3%" aria-valuenow="40.3" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        
-                        <div class="progress-title">
-                            <span><i class="bi bi-square-fill" style="color:#93b5e1"></i> Kesehatan</span>
-                            <span>28.5%</span>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-kesehatan" role="progressbar" style="width: 28.5%" aria-valuenow="28.5" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-lg-6">
-                <div class="content-card">
-                    <div class="section-title">Laporan Keuangan Terbaru</div>
-                    
-                    <div class="document-links">
-                        <a href="#" class="document-link">
-                            <i class="bi bi-file-earmark-pdf"></i> Laporan Keuangan Q1 2025
-                        </a>
-                        <a href="#" class="document-link">
-                            <i class="bi bi-file-earmark-pdf"></i> Laporan Keuangan Q4 2024
-                        </a>
-                        <a href="#" class="document-link">
-                            <i class="bi bi-file-earmark-pdf"></i> Laporan Keuangan Q3 2024
-                        </a>
-                        <a href="#" class="document-link">
-                            <i class="bi bi-file-earmark-spreadsheet"></i> Data Donatur 2024
-                        </a>
-                        <a href="#" class="document-link">
-                            <i class="bi bi-file-earmark-pdf"></i> Audit Tahunan 2024
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
+       
         <div class="row">
             <div class="col-lg-12">
-                <div class="content-card">
-                    <div class="section-title">Alokasi Dana Per Program</div>
-                    
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Nama Program</th>
-                                    <th>Kategori</th>
-                                    <th>Tanggal</th>
-                                    <th>Jumlah</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Bantuan Korban Banjir di hagu selatan</td>
-                                    <td><span class="badge bg-warning text-dark">Bencana Alam</span></td>
-                                    <td>4 Desember 2024</td>
-                                    <td>Rp 1.250.000</td>
-                                    <td><span class="badge bg-success">Tersalurkan</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Bantuan Darurat untuk warga terdampak abrasi di pantai meunasah</td>
-                                    <td><span class="badge bg-info text-dark">Sosial</span></td>
-                                    <td>14 Januari 2025</td>
-                                    <td>Rp 2.500.000</td>
-                                    <td><span class="badge bg-success">Tersalurkan</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Membantu warga yang terkena musibah kebakaran</td>
-                                    <td><span class="badge bg-info text-dark">Sosial</span></td>
-                                    <td>15 Januari 2025</td>
-                                    <td>Rp 1.800.000</td>
-                                    <td><span class="badge bg-success">Tersalurkan</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Bantuan warga binjai yang terkena banjir</td>
-                                    <td><span class="badge bg-primary">Bencana Alam</span></td>
-                                    <td>20 Jan 2025</td>
-                                    <td>Rp 950.000</td>
-                                    <td><span class="badge bg-success">Tersalurkan</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Bantuan warga kabupaten deliserdang yang terkena banjir</td>
-                                    <td><span class="badge bg-primary">Bencana Alam</span></td>
-                                    <td>22 Jan 2025</td>
-                                    <td>Rp 750.000</td>
-                                    <td><span class="badge bg-success">Tersalurkan</span></td>
-                                </tr>
-                                <tr>
-                                    <td>Bantuan logistik untuk warga kabupaten asahan</td>
-                                    <td><span class="badge bg-primary">Sosial</span></td>
-                                    <td>26 Januari 2025</td>
-                                    <td>Rp 1.500.000</td>
-                                    <td><span class="badge bg-success">Tersalurkan</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+<div class="content-card">
+    <div class="section-title">Alokasi Dana Per Program</div>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>Nama Program</th>
+                    <th>Kategori</th>
+                    <th>Tanggal</th>
+                    <th>Jumlah</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{if .AlokasiDana}} <!-- Check if AlokasiDana is not empty -->
+                    {{range .AlokasiDana}} <!-- Iterate over each AlokasiDana -->
+                        <tr>
+                            <td>{{.Title}}</td>
+                            <td><span class="badge bg-warning text-dark">{{.Category}}</span></td>
+                            <td>{{formatWaktu .UpdatedAt}}</td>
+                            <td>{{formatRupiah1 .TargetAmount}}</td>
+                            <td><span class="badge bg-success">Tersalurkan</span></td>
+                        </tr>
+                    {{end}}
+                {{else}} <!-- If no AlokasiDana available, show this message -->
+                    <tr>
+                        <td colspan="5">Tidak ada data alokasi dana yang tersedia.</td>
+                    </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
             </div>
         </div>
         
@@ -617,28 +504,34 @@
                     <div class="timeline">
                         <div class="timeline-container left">
                             <div class="timeline-content">
-                                <h2 class="timeline-date">4 Desember 2024</h2>
+                                <h2 class="timeline-date">1 Juni 2025</h2>
                                 <p>Penyaluran bantuan untuk korban banjir di hagu selatan. Distribusi paket sembako dan kebutuhan darurat untuk keluarga terdampak.</p>
-                                <img src="images/banjir-bandung.jpg" class="img-fluid rounded mt-2" alt="Dokumentasi Bantuan Banjir">
                             </div>
                         </div>
                         <div class="timeline-container right">
                             <div class="timeline-content">
-                                <h2 class="timeline-date">14 Januari 2025</h2>
-                                <p>Memberikan bantuan darurat kepada warga yang terdampak abrasi pantai di meunasah</p>
+                                <h2 class="timeline-date">10 Juni 2025</h2>
+                                <p>Membantu komunitas tunanetra dengan memberikan alat bantu baca Braille, tongkat, dan pelatihan keterampilan.</p>
+                            
                             </div>
                         </div>
                         <div class="timeline-container left">
                             <div class="timeline-content">
-                                <h2 class="timeline-date">20 Januari 2025</h2>
-                                <p>Menyalurkan bantuan logistik kepada warga yang terdampak banjir di kota binjai</p>
-                                <img src="images/perpustakaan-desa.jpg" class="img-fluid rounded mt-2" alt="Perpustakaan Desa">
+                                <h2 class="timeline-date">20 Juli 2025</h2>
+                                <p>Menyalurkan bantuan hewan kurban untuk wilayah terpencil</p>
+                                <!-- <img src="images/perpustakaan-desa.jpg" class="img-fluid rounded mt-2" alt="Perpustakaan Desa"> -->
                             </div>
                         </div>
                         <div class="timeline-container right">
                             <div class="timeline-content">
-                                <h2 class="timeline-date">22 Januari 2025</h2>
-                                <p>Memberikan bantuna pangan, air bersih bagi warga terdampak banjir di kabupaten deli serdang</p>
+                                <h2 class="timeline-date">29 Juli 2025</h2>
+                                <p>Membantu anak-anak desa terpencil mendapatkan akses pendidikan yang layak</p>
+                            </div>
+                        </div>
+                        <div class="timeline-container left">
+                            <div class="timeline-content">
+                                <h2 class="timeline-date">1 Agustus 2025</h2>
+                                <p>Membantu renovasi panti asuhan yang menampung 50 anak yatim piatu</p>
                             </div>
                         </div>
                     </div>
@@ -748,8 +641,24 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </footer>   
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+fetch("/api/transparansi/ringkasan")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("totalDonasi").innerText = "Rp " + data.total_donasi.toLocaleString('id-ID');
+    document.getElementById("totalTersalurkan").innerText = "Rp " + data.total_tersalurkan.toLocaleString('id-ID');
+    document.getElementById("saldo").innerText = "Rp " + data.saldo.toLocaleString('id-ID');
+    document.getElementById("jumlahDonatur").innerText = data.jumlah_donatur;
+  })
+  .catch(err => {
+    console.error("Gagal mengambil data transparansi:", err);
+  });
+</script>
+
 </body>
 </html>

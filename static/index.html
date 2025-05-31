@@ -593,7 +593,10 @@
                         <a class="nav-link" href="tentang.html">Tentang Donasi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="transparansi.html">Transparansi</a>
+                        <a class="nav-link" href="\transparansi">Transparansi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Profil Pembuat</a>
                     </li>
                 </ul>
             </div>
@@ -651,7 +654,7 @@
                                     <div class="donor-name">
                                         {{$donatur.Nama}}
                                         {{if $donatur.IsTopDonatur}}
-                                        <span class="donor-badge">Top Donatur</span>
+                                        <span class="donor-badge"></span>
                                         {{end}}
                                     </div>
                                     <div class="donor-campaign">{{$donatur.KampanyeNama}}</div>
@@ -1139,7 +1142,7 @@
 
     <script>
         // Add this script to the page containing the quick-donate-card
-document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
     const quickDonateForm = document.querySelector('.quick-donate-card');
     const customAmountInput = document.getElementById('customAmount');
     const amountButtons = document.querySelectorAll('.donate-amount-btn');
