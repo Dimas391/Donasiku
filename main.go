@@ -14,6 +14,7 @@ import (
 	"github.com/gorilla/mux"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+
 )
 
 type Donasi struct {
@@ -28,6 +29,8 @@ type Donasi struct {
 	MetodePembayaran string    `json:"metode_pembayaran"`
 	StatusPembayaran string    `json:"status_pembayaran" gorm:"default:'menunggu'"`
 	TanggalDonasi    time.Time `json:"tanggal_donasi"`
+	CampaignID       *uint     `json:"campaign_id" gorm:"index"` // Nullable foreign key
+    Campaign         Campaign  `json:"campaign,omitempty" gorm:"foreignKey:CampaignID;references:ID"` // Relasi
 	CreatedAt        time.Time `json:"created_at"`
 	UpdatedAt        time.Time `json:"updated_at"`
 }
@@ -168,6 +171,22 @@ func corsMiddleware(next http.Handler) http.Handler {
 
 		next.ServeHTTP(w, r)
 	})
+}
+
+func addCampaignIDColumn() error {
+    // Cek apakah kolom sudah ada
+    if db.Migrator().HasColumn(&Donasi{}, "campaign_id") {
+        fmt.Println("Column campaign_id already exists")
+        return nil
+    }
+    
+    // Tambahkan kolom campaign_id
+    if err := db.Migrator().AddColumn(&Donasi{}, "campaign_id"); err != nil {
+        return fmt.Errorf("failed to add campaign_id column: %v", err)
+    }
+    
+    fmt.Println("Successfully added campaign_id column")
+    return nil
 }
 
 func getCampaignByIDAPI(w http.ResponseWriter, r *http.Request) {
@@ -717,8 +736,16 @@ func initDB() {
 		}
 	}
 
-	db.AutoMigrate(&Donasi{}, &Komunitas{}, &PenerimaBantuan{}, &Campaign{})
-	fmt.Println("Database berhasil dimigrasi")
+	err = db.AutoMigrate(&Donasi{}, &Komunitas{}, &PenerimaBantuan{}, &Campaign{})
+    if err != nil {
+        log.Fatal("Failed to migrate database:", err)
+    }
+    fmt.Println("Database berhasil dimigrasi")
+
+    // Seed campaign data
+    if err := seedCampaigns(); err != nil {
+        log.Printf("Warning: Failed to seed campaigns: %v", err)
+    }
 }
 
 // [Rest of your handler functions remain the same...]
@@ -1445,4 +1472,3 @@ func quickDonate(w http.ResponseWriter, r *http.Request) {
         "jumlah": donasi.Jumlah,
     })
 }
-

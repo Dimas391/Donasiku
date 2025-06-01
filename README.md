@@ -94,9 +94,3 @@ Aplikasi ini dilisensikan di bawah **MIT License**. Untuk informasi lebih lanjut
 Jika ada yang perlu ditanyakan atau butuh bantuan lebih lanjut, jangan ragu untuk membuka *issue* di repositori atau menghubungi kami!
 
 ---
-
-
-
-   
-
-
